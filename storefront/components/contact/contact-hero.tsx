@@ -1,5 +1,4 @@
 import { CONTACT_CARDS } from "@/constants";
-import { Sparkles } from "lucide-react";
 import Container from "../container";
 import Wrapper from "../wrapper";
 
@@ -10,13 +9,6 @@ const ContactHero = () => {
 
       <Wrapper className="py-20">
         <div className="flex flex-col items-center justify-center w-full z-10">
-          <Container>
-            <div className="flex items-center justify-center gap-x-1 px-2 py-1.5 relative w-max mx-auto rounded-full before:absolute before:inset-0 before:-z-10 before:p-[1px] before:rounded-3xl before:bg-gradient-to-b before:from-neutral-700 before:to-neutral-900 before:content-[''] after:absolute after:inset-[1px] after:-z-10 after:rounded-[22px] after:bg-[#181818]/60">
-              <Sparkles className="size-5" />
-              <span className="text-sm text-white">Contact Us</span>
-            </div>
-          </Container>
-
           <Container delay={0.1}>
             <h2 className="text-balance !leading-[1.25] text-center text-4xl md:text-6xl font-semibold tracking-tight mt-6 w-full">
               Let's Start a Conversation

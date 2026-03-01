@@ -38,10 +38,8 @@ const MobileMenu = () => {
             </SheetClose>
           ))}
           <SheetClose asChild>
-            <Link href="/contact" className="w-full mt-4">
-              <Button size="lg" variant="outline" className="w-full">
-                {t("contactSales")}
-              </Button>
+            <Link href="/contact" className="text-lg font-medium w-full">
+              {t("contactSales")}
             </Link>
           </SheetClose>
           <LanguageSwitcher />

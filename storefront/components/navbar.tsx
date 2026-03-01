@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/constants/links";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -61,15 +60,20 @@ const Navbar = () => {
               </div>
             </Container>
           ))}
+          <Container animation="fadeDown" delay={0.1 * NAV_LINKS.length}>
+            <div className="relative">
+              <Link
+                href="/contact"
+                className="hover:text-foreground transition-all duration-500 px-1.5"
+              >
+                {t("contactSales")}
+              </Link>
+            </div>
+          </Container>
         </div>
 
         <Container animation="fadeLeft" delay={0.1}>
           <div className="flex items-center gap-x-4">
-            <Link href="/contact" className="hidden lg:block">
-              <Button size="sm" variant="outline">
-                {t("contactSales")}
-              </Button>
-            </Link>
             <LanguageSwitcher className="hidden lg:block" />
             <div className="lg:hidden">
               <MobileMenu />
