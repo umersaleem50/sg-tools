@@ -1,4 +1,5 @@
 import Hero from "@/components/hero";
+import Companies from "@/components/companies";
 import { setRequestLocale } from "next-intl/server";
 
 type Props = {
@@ -12,6 +13,7 @@ const HomePage = async ({ params }: Props) => {
   return (
     <div className="w-full relative flex flex-col pt-16">
       <Hero />
+      <Companies />
     </div>
   );
 };
