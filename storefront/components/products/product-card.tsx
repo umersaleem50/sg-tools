@@ -62,9 +62,9 @@ const ProductCard = ({
         </div>
 
         <div className="flex flex-col flex-1 p-3 sm:p-4">
-          {product.manufacturer && (
+          {product.manufacturer?.name && (
             <span className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              {product.manufacturer}
+              {product.manufacturer.name}
             </span>
           )}
 
@@ -90,7 +90,7 @@ const ProductCard = ({
           </div>
 
           <a
-            href={product.permalink}
+            href={product.url}
             target="_blank"
             rel="noopener noreferrer"
             className={`relative z-20 mt-3 inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 ${

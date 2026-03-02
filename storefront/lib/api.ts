@@ -1,7 +1,10 @@
-import type { Product } from "@/types/products";
+import type { ApiProductsResponse, Product } from "@/types/products";
 
 const API_URL = process.env.API_URL;
 const BEARER_TOKEN = process.env.BEARER_TOKEN;
+
+const HIDE_PARAMS =
+  "&hide_seo=true&hide_tags=true&hide_attributes=true&hide_locations=true&hide_variations=true";
 
 async function apiFetch<T>(path: string, locale?: string): Promise<T> {
   if (!API_URL || !BEARER_TOKEN) {
@@ -33,45 +36,47 @@ async function apiFetch<T>(path: string, locale?: string): Promise<T> {
 export async function getProducts(
   locale?: string,
   offset: number = 0,
-  limit: number = 50,
+  limit: number = 20,
 ): Promise<Product[]> {
-  return apiFetch<Product[]>(
-    `/GET/products/short/?namespace=prodavnicaalata&limit=${offset},${limit}`,
+  const response = await apiFetch<ApiProductsResponse>(
+    `/GET/products/?namespace=prodavnicaalata&limit=${offset},${limit}${HIDE_PARAMS}`,
     locale,
   );
+  return response.data.products;
 }
 
 export async function getProductBySlug(
   slug: string,
   locale?: string,
 ): Promise<Product | null> {
-  const products = await apiFetch<Product[]>(
-    `/GET/products/short/?namespace=prodavnicaalata&slug=${slug}&limit=0,1`,
+  const response = await apiFetch<ApiProductsResponse>(
+    `/GET/products/?namespace=prodavnicaalata&slug=${slug}&limit=0,1`,
     locale,
   );
-  return products[0] ?? null;
+  return response.data.products[0] ?? null;
 }
 
 export async function getProductsByCategory(
   categorySlug: string,
   locale?: string,
   offset: number = 0,
-  limit: number = 50,
+  limit: number = 20,
 ): Promise<Product[]> {
   try {
-    const result = await apiFetch<Product[]>(
-      `/GET/products/short/?namespace=prodavnicaalata&category=${categorySlug}&limit=${offset},${limit}`,
+    const response = await apiFetch<ApiProductsResponse>(
+      `/GET/products/?namespace=prodavnicaalata&category=${categorySlug}&limit=${offset},${limit}${HIDE_PARAMS}`,
       locale,
     );
-    if (Array.isArray(result)) return result;
+    if (response.data.products.length > 0) return response.data.products;
   } catch {
     // Category filter endpoint failed — try fallback
   }
 
   try {
-    const all = await getProducts(locale, 0, 200);
-    const filtered = all.filter((p) => p.categories.includes(categorySlug));
-    if (filtered.length > 0) return filtered;
+    const all = await getProducts(locale, 0, 20);
+    return all.filter((p) =>
+      p.categories.some((c) => c.slug === categorySlug),
+    );
   } catch {
     // Fallback filtering also failed
   }

@@ -29,12 +29,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "productPage" });
 
   return {
-    title: t("metaTitle", { product: product.title }),
-    description: product.description,
+    title: product.seo?.title_tag || t("metaTitle", { product: product.title }),
+    description: product.seo?.description || product.description,
     openGraph: {
-      title: product.title,
-      description: product.description,
-      images: product.poster_url ? [{ url: product.poster_url }] : [],
+      title: product.seo?.title || product.title,
+      description: product.seo?.description || product.description,
+      images: [{ url: product.seo?.image || product.poster_url }].filter(
+        (img) => img.url,
+      ),
     },
   };
 }
@@ -47,7 +49,7 @@ const ProductPage = async ({ params }: Props) => {
   if (!product) notFound();
 
   // Fetch related products from same category (up to 4, excluding current)
-  const categorySlug = product.categories?.split(",")[0]?.trim() || product.category;
+  const categorySlug = product.categories?.[0]?.slug || product.category;
   let relatedProducts = categorySlug
     ? await getProductsByCategory(categorySlug, locale)
     : [];

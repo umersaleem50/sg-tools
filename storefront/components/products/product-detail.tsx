@@ -24,8 +24,10 @@ const ProductDetail = async ({ product, relatedProducts }: ProductDetailProps) =
     ? Math.round(((product.price - product.sale_price!) / product.price) * 100)
     : 0;
 
-  // Extract first category slug for breadcrumb linking
-  const categorySlug = product.categories?.split(",")[0]?.trim() || product.category;
+  // Extract first category for breadcrumb linking
+  const firstCategory = product.categories?.[0];
+  const categorySlug = firstCategory?.slug || product.category;
+  const categoryName = firstCategory?.name || product.category;
 
   return (
     <Wrapper className="py-8 lg:py-12">
@@ -45,7 +47,7 @@ const ProductDetail = async ({ product, relatedProducts }: ProductDetailProps) =
                 href={{ pathname: "/products/categories/[slug]", params: { slug: categorySlug } }}
                 className="hover:text-foreground transition-colors"
               >
-                {product.category}
+                {categoryName}
               </Link>
             </>
           )}
@@ -60,7 +62,7 @@ const ProductDetail = async ({ product, relatedProducts }: ProductDetailProps) =
         <Container>
           <ProductGallery
             posterUrl={product.poster_url}
-            imageUrls={product.imageUrls ?? []}
+            imageUrls={product.gallery?.map((g) => g.url) ?? []}
             title={product.title}
           />
         </Container>
@@ -68,9 +70,9 @@ const ProductDetail = async ({ product, relatedProducts }: ProductDetailProps) =
         {/* Right: Product info */}
         <Container delay={1}>
           <div className="flex flex-col">
-            {product.manufacturer && (
+            {product.manufacturer?.name && (
               <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {product.manufacturer}
+                {product.manufacturer.name}
               </span>
             )}
 
@@ -117,7 +119,7 @@ const ProductDetail = async ({ product, relatedProducts }: ProductDetailProps) =
 
             {/* Buy button */}
             <a
-              href={product.permalink}
+              href={product.url}
               target="_blank"
               rel="noopener noreferrer"
               className={`mt-6 inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-8 transition-colors ${
@@ -145,7 +147,7 @@ const ProductDetail = async ({ product, relatedProducts }: ProductDetailProps) =
                     href={{ pathname: "/products/categories/[slug]", params: { slug: categorySlug } }}
                     className="text-primary hover:underline"
                   >
-                    {product.category}
+                    {categoryName}
                   </Link>
                 </div>
               )}
