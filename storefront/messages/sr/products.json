@@ -13,6 +13,24 @@
     "discount": "-{percent}%",
     "currency": "RSD"
   },
+  "productPage": {
+    "buyOnline": "Kupi online",
+    "outOfStock": "Nema na stanju",
+    "inStock": "Na stanju",
+    "discount": "-{percent}%",
+    "currency": "RSD",
+    "price": "Cena",
+    "sku": "Šifra",
+    "manufacturer": "Proizvođač",
+    "category": "Kategorija",
+    "description": "Opis",
+    "details": "Detalji",
+    "backToProducts": "Svi proizvodi",
+    "relatedProducts": "Slični proizvodi",
+    "notFound": "Proizvod nije pronađen",
+    "notFoundDescription": "Proizvod koji tražiš ne postoji ili je uklonjen.",
+    "metaTitle": "{product} | SG Tools"
+  },
   "categoriesList": {
     "heading": "Kategorije proizvoda",
     "description": "Istraži naš širok izbor profesionalnog alata za svaku potrebu.",

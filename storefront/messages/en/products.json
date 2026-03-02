@@ -13,6 +13,24 @@
     "discount": "-{percent}%",
     "currency": "RSD"
   },
+  "productPage": {
+    "buyOnline": "Buy Online",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "discount": "-{percent}%",
+    "currency": "RSD",
+    "price": "Price",
+    "sku": "SKU",
+    "manufacturer": "Manufacturer",
+    "category": "Category",
+    "description": "Description",
+    "details": "Details",
+    "backToProducts": "All Products",
+    "relatedProducts": "Related Products",
+    "notFound": "Product not found",
+    "notFoundDescription": "The product you're looking for doesn't exist or has been removed.",
+    "metaTitle": "{product} | SG Tools"
+  },
   "categoriesList": {
     "heading": "Product Categories",
     "description": "Explore our wide selection of professional tools for every need.",

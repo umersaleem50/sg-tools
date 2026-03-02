@@ -16,5 +16,5 @@ export interface Product {
   url: string;
   permalink: string;
   poster_url: string;
-  gallery: string;
+  imageUrls: string[];
 }

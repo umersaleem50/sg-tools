@@ -1,4 +1,5 @@
 import Container from "@/components/container";
+import { Link } from "@/i18n/navigation";
 import type { Product } from "@/types/products";
 import Image from "next/image";
 
@@ -29,7 +30,13 @@ const ProductCard = ({
 
   return (
     <Container delay={index * 0.05}>
-      <div className="flex flex-col bg-foreground/5 border border-border/20 hover:border-border transition-all rounded-lg lg:rounded-xl overflow-hidden h-full">
+      <div className="relative flex flex-col bg-foreground/5 border border-border/20 hover:border-border transition-all rounded-lg lg:rounded-xl overflow-hidden h-full">
+        <Link
+          href={{ pathname: "/products/[slug]", params: { slug: product.slug } }}
+          className="absolute inset-0 z-10"
+        >
+          <span className="sr-only">{product.title}</span>
+        </Link>
         <div className="relative aspect-square w-full bg-foreground/5">
           {product.poster_url && (
             <Image
@@ -86,7 +93,7 @@ const ProductCard = ({
             href={product.permalink}
             target="_blank"
             rel="noopener noreferrer"
-            className={`mt-3 inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 ${
+            className={`relative z-20 mt-3 inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 ${
               isOutOfStock
                 ? "bg-muted text-muted-foreground pointer-events-none"
                 : "bg-primary text-primary-foreground hover:bg-primary/90"

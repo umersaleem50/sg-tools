@@ -37,5 +37,9 @@ export const routing = defineRouting({
       en: "/products/categories/[slug]",
       sr: "/proizvodi/kategorije/[slug]",
     },
+    "/products/[slug]": {
+      en: "/products/[slug]",
+      sr: "/proizvodi/[slug]",
+    },
   },
 });
