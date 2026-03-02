@@ -66,7 +66,6 @@ export default function DealerMap({
       center={[44.2, 20.9]}
       zoom={7}
       className="h-full w-full rounded-lg"
-      style={{ minHeight: "400px" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'

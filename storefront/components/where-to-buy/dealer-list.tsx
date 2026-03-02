@@ -66,7 +66,7 @@ export default function DealerList({
   }
 
   return (
-    <div ref={listRef} className="flex flex-col gap-3 overflow-y-auto pr-1">
+    <div ref={listRef} className="flex flex-col gap-3">
       {dealers.map((dealer) => {
         const isSelected = dealer.id === selectedDealerId;
 

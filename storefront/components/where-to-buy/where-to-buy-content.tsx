@@ -14,7 +14,7 @@ import type { DealerCategory } from "@/types/dealers";
 const DealerMap = dynamic(() => import("./dealer-map"), {
   ssr: false,
   loading: () => (
-    <div className="h-full w-full rounded-lg bg-card animate-pulse flex items-center justify-center min-h-[400px]">
+    <div className="h-full w-full rounded-lg bg-card animate-pulse flex items-center justify-center">
       <div className="text-muted-foreground text-sm">Loading map...</div>
     </div>
   ),
@@ -57,7 +57,7 @@ export default function WhereToBuyContent() {
   }
 
   return (
-    <Wrapper className="py-8 sm:py-12">
+    <Wrapper className="py-6 sm:py-8">
       <Container delay={0.2}>
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -95,9 +95,9 @@ export default function WhereToBuyContent() {
         </p>
 
         {/* Main grid: list left, map right */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6" style={{ minHeight: "500px" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-6 lg:items-start">
           {/* Map - shows first on mobile */}
-          <div className="order-1 lg:order-2 lg:col-span-3 rounded-lg overflow-hidden border border-border h-[400px] lg:h-auto">
+          <div className="order-1 lg:order-2 rounded-lg overflow-hidden border border-border h-[320px] sm:h-[380px] lg:h-[560px] lg:sticky lg:top-20">
             <DealerMap
               dealers={filteredDealers}
               selectedDealerId={selectedDealerId}
@@ -106,7 +106,7 @@ export default function WhereToBuyContent() {
           </div>
 
           {/* List */}
-          <div className="order-2 lg:order-1 lg:col-span-2 max-h-[600px] lg:max-h-none overflow-y-auto">
+          <div className="order-2 lg:order-1 lg:max-h-[calc(100vh-12rem)] lg:overflow-y-auto">
             <DealerList
               dealers={filteredDealers}
               selectedDealerId={selectedDealerId}
