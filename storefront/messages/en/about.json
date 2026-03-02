@@ -1,0 +1,35 @@
+{
+  "aboutPage": {
+    "title": "About us",
+    "description": "Meet the brand born from experience, knowledge, and the needs of those who use tools every day."
+  },
+  "aboutStory": {
+    "heading": "SG TOOLS\nBuilt on knowledge",
+    "milestones": [
+      {
+        "title": "30 years in tools",
+        "description": "Three decades ago, our family stepped into the world of tools. Since then, we've been constantly learning, growing, and following the needs of the market."
+      },
+      {
+        "title": "We listened to customers",
+        "description": "As the business grew, we paid close attention to what customers truly needed — their suggestions became our guidelines."
+      },
+      {
+        "title": "SG Tools was born",
+        "description": "Seven years ago, we turned that knowledge into a brand. Today, we're expanding our range and creating new products with the same care."
+      }
+    ]
+  },
+  "aboutContent": {
+    "linkText": "Browse all SG Tools products",
+    "paragraphs": [
+      "SG TOOLS is a brand created in response to what we've been hearing from the other side of the counter for years — from craftsmen, hobbyists, installers, and technicians who know exactly what they expect from their tools. We didn't treat their suggestions as mere comments, but as guidelines. We listened carefully, took notes, and turned them into real solutions.",
+      "We understood that a good tool isn't just about looks or technical specs — it's a balance between reliability, ergonomics, material quality, and the feel during use.",
+      "We choose materials thoughtfully, with an emphasis on durability and resilience in real working conditions. For us, ergonomics isn't an afterthought — it's the starting point. A tool must fit naturally in your hand, provide a secure grip, and allow extended use without unnecessary fatigue. Design always serves function, without superfluous details, with the clear purpose of making the tool reliable and practical in everyday use.",
+      "From raw material selection to the final finish, nothing is left to chance.",
+      "This isn't a brand built on compromises at the expense of quality, but it's also not a brand that makes quality unattainable. Our goal is clear — professional quality at prices that make sense.",
+      "Born from listening, understanding, and knowledge, with respect for the experience of our users — turning it into concrete, functional solutions.",
+      "SG TOOLS is a shared success that we continue to build together with our customers."
+    ]
+  }
+}

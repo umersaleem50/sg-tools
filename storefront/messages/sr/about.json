@@ -1,0 +1,35 @@
+{
+  "aboutPage": {
+    "title": "O nama",
+    "description": "Upoznaj brend koji je nastao iz iskustva, znanja i potreba onih koji alat koriste svaki dan."
+  },
+  "aboutStory": {
+    "heading": "SG TOOLS\nGrađen znanjem",
+    "milestones": [
+      {
+        "title": "30 godina u alatima",
+        "description": "Pre tri decenije, naša porodica je zakoračila u svet alata. Od tada neprestano učimo, rastemo i pratimo potrebe tržišta."
+      },
+      {
+        "title": "Slušali smo kupce",
+        "description": "Kako se posao razvijao, osluškivali smo šta je kupcima zaista potrebno — njihove sugestije su postale naše smernice."
+      },
+      {
+        "title": "Nastao je SG Tools",
+        "description": "Pre 7 godina to znanje smo pretvorili u brend. Danas širimo asortiman i pravimo nove proizvode sa istom pažnjom."
+      }
+    ]
+  },
+  "aboutContent": {
+    "linkText": "Pogledaj sve SG Tools proizvode",
+    "paragraphs": [
+      "SG TOOLS je brend nastao kao odgovor na ono što smo godinama slušali sa druge strane pulta — od majstora, hobista, instalatera i servisera koji tačno znaju šta od alata očekuju. Njihove sugestije nismo posmatrali kao komentare, već kao smernice. Pažljivo smo ih slušali, beležili i pretvarali u konkretna rešenja.",
+      "Razumeli smo da dobar alat nije samo pitanje izgleda ili tehničke specifikacije, već ravnoteža između pouzdanosti, ergonomije, kvaliteta materijala i osećaja u radu.",
+      "Materijale biramo promišljeno, sa naglaskom na trajnost i otpornost u realnim uslovima rada. Ergonomija za nas nije dodatak, već polazna tačka — alat mora prirodno ležati u ruci, pružati siguran hvat i omogućiti dugotrajan rad bez nepotrebnog zamora. Dizajn je uvek u službi funkcije, bez suvišnih detalja, sa jasnom namenom da alat bude pouzdan i praktičan u svakodnevnoj upotrebi.",
+      "Od izbora sirovina do završne obrade, ništa nije prepušteno slučaju.",
+      "Ovo nije brend koji nastaje kompromisima na račun kvaliteta, ali isto tako nije ni brend koji kvalitet čini nedostupnim. Naš cilj je jasan — profesionalni kvalitet po cenama koje imaju smisla.",
+      "Nastao iz slušanja, razumevanja i znanja, uz poštovanje iskustva korisnika — pretvarajući ga u konkretna, funkcionalna rešenja.",
+      "SG TOOLS je zajednički uspeh koji nastavljamo da gradimo zajedno sa našim kupcima."
+    ]
+  }
+}
