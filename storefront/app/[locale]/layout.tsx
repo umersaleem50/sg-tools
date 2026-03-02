@@ -50,7 +50,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         )}
       >
         <NextIntlClientProvider
-          messages={pick(messages, ["nav", "languageSwitcher"])}
+          messages={pick(messages, ["nav", "languageSwitcher", "whereToBuy"])}
         >
           <Navbar />
           <main>{children}</main>

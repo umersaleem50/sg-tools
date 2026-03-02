@@ -25,5 +25,9 @@ export const routing = defineRouting({
       en: "/docs",
       sr: "/dokumentacija",
     },
+    "/where-to-buy": {
+      en: "/where-to-buy",
+      sr: "/gde-kupiti",
+    },
   },
 });
