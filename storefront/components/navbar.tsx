@@ -1,8 +1,16 @@
 "use client";
 
 import { NAV_LINKS } from "@/constants/links";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
@@ -13,6 +21,7 @@ const MobileMenu = dynamic(() => import("./mobile-menu"), { ssr: false });
 
 const Navbar = () => {
   const t = useTranslations("nav");
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -47,29 +56,80 @@ const Navbar = () => {
           />
         </Link>
 
-        <div className="hidden lg:flex flex-row flex-1 absolute inset-0 items-center justify-center w-max mx-auto gap-x-3 text-sm text-muted-foreground font-medium">
-          {NAV_LINKS.map((link, index) => (
-            <Container key={index} animation="fadeDown" delay={0.1 * index}>
-              <div className="relative">
-                <Link
-                  href={link.href}
-                  className="hover:text-foreground transition-all duration-500 px-1.5"
-                >
-                  {t(link.labelKey)}
-                </Link>
-              </div>
-            </Container>
-          ))}
-          <Container animation="fadeDown" delay={0.1 * NAV_LINKS.length}>
-            <div className="relative">
-              <Link
-                href="/contact"
-                className="hover:text-foreground transition-all duration-500 px-1.5"
-              >
-                {t("contactSales")}
-              </Link>
-            </div>
-          </Container>
+        <div className="hidden lg:flex flex-row flex-1 absolute inset-0 items-center justify-center w-max mx-auto">
+          <NavigationMenu>
+            <NavigationMenuList className="gap-x-1">
+              {NAV_LINKS.map((link, index) => (
+                <Container key={index} animation="fadeDown" delay={0.1 * index}>
+                  <NavigationMenuItem>
+                    {link.children ? (
+                      <>
+                        <NavigationMenuTrigger
+                          className="text-sm font-medium cursor-pointer"
+                          onClick={() => {
+                            router.push("/products/categories");
+                          }}
+                        >
+                          {t(link.labelKey as Parameters<typeof t>[0])}
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent className="min-w-[200px]">
+                          <ul className="flex flex-col gap-0.5 p-1">
+                            {link.children.map((child) => (
+                              <li key={child.slug}>
+                                <NavigationMenuLink asChild>
+                                  <Link
+                                    href={{
+                                      pathname: "/products/categories/[slug]",
+                                      params: { slug: child.slug },
+                                    }}
+                                    className="flex select-none rounded-sm px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                  >
+                                    {t(child.labelKey as Parameters<typeof t>[0])}
+                                  </Link>
+                                </NavigationMenuLink>
+                              </li>
+                            ))}
+                            <li>
+                              <hr className="my-1 border-border" />
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  href="/products/categories"
+                                  className="flex select-none rounded-sm px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                                >
+                                  {t("allCategories")}
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          </ul>
+                        </NavigationMenuContent>
+                      </>
+                    ) : (
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={link.href as "/about" | "/faq" | "/where-to-buy"}
+                          className="hover:text-foreground transition-all duration-500 px-1.5 text-sm font-medium text-muted-foreground"
+                        >
+                          {t(link.labelKey as Parameters<typeof t>[0])}
+                        </Link>
+                      </NavigationMenuLink>
+                    )}
+                  </NavigationMenuItem>
+                </Container>
+              ))}
+              <Container animation="fadeDown" delay={0.1 * NAV_LINKS.length}>
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild>
+                    <Link
+                      href="/contact"
+                      className="hover:text-foreground transition-all duration-500 px-1.5 text-sm font-medium text-muted-foreground"
+                    >
+                      {t("contactSales")}
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </Container>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
 
         <Container animation="fadeLeft" delay={0.1}>

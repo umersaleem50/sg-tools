@@ -9,7 +9,12 @@
     "faq": "Česta pitanja",
     "contactSales": "Kontakt",
     "whereToBuy": "Gde kupiti",
-    "menu": "Meni"
+    "menu": "Meni",
+    "electricTools": "Električni alati",
+    "handTools": "Ručni alati",
+    "grinders": "Brusilice",
+    "diamondTools": "Dijamantski alati",
+    "allCategories": "Sve kategorije"
   },
   "footer": {
     "taglineLine1": "Bez napora pokrenite robusne,",

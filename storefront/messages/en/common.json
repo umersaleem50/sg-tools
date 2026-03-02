@@ -9,7 +9,12 @@
     "faq": "FAQ",
     "contactSales": "Contact Sales",
     "whereToBuy": "Where to Buy",
-    "menu": "Menu"
+    "menu": "Menu",
+    "electricTools": "Electric Tools",
+    "handTools": "Hand Tools",
+    "grinders": "Grinders",
+    "diamondTools": "Diamond Tools",
+    "allCategories": "All Categories"
   },
   "footer": {
     "taglineLine1": "Effortlessly launch robust,",
