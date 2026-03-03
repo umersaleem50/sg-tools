@@ -2,24 +2,15 @@ import Container from "@/components/container";
 import { Link } from "@/i18n/navigation";
 import type { Product } from "@/types/products";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 interface ProductCardProps {
   product: Product;
   index: number;
-  buyLabel: string;
-  outOfStockLabel: string;
-  discountLabel: string;
-  currency: string;
 }
 
-const ProductCard = ({
-  product,
-  index,
-  buyLabel,
-  outOfStockLabel,
-  discountLabel,
-  currency,
-}: ProductCardProps) => {
+const ProductCard = async ({ product, index }: ProductCardProps) => {
+  const t = await getTranslations("categoryPage");
   const hasDiscount =
     product.sale_price !== null && product.sale_price < product.price;
   const isOutOfStock = product.stock <= 0;
@@ -50,13 +41,13 @@ const ProductCard = ({
 
           {hasDiscount && (
             <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-semibold px-2 py-1 rounded">
-              {discountLabel.replace("{percent}", String(discountPercent))}
+              {t("discount", { percent: discountPercent })}
             </span>
           )}
 
           {isOutOfStock && (
             <span className="absolute top-2 right-2 bg-muted text-muted-foreground text-xs font-semibold px-2 py-1 rounded">
-              {outOfStockLabel}
+              {t("outOfStock")}
             </span>
           )}
         </div>
@@ -80,11 +71,11 @@ const ProductCard = ({
 
           <div className="flex items-baseline gap-2 mt-auto pt-3">
             <span className="text-base sm:text-lg font-bold">
-              {displayPrice.toLocaleString("sr-RS")} {currency}
+              {displayPrice.toLocaleString("sr-RS")} {t("currency")}
             </span>
             {hasDiscount && (
               <span className="text-xs sm:text-sm text-muted-foreground line-through">
-                {product.price.toLocaleString("sr-RS")} {currency}
+                {product.price.toLocaleString("sr-RS")} {t("currency")}
               </span>
             )}
           </div>
@@ -99,7 +90,7 @@ const ProductCard = ({
                 : "bg-primary text-primary-foreground hover:bg-primary/90"
             } transition-colors`}
           >
-            {isOutOfStock ? outOfStockLabel : buyLabel}
+            {isOutOfStock ? t("outOfStock") : t("buyOnline")}
           </a>
         </div>
       </div>

@@ -14,7 +14,7 @@ interface ProductDetailProps {
 
 const ProductDetail = async ({ product, relatedProducts }: ProductDetailProps) => {
   const t = await getTranslations("productPage");
-  const tCategory = await getTranslations("categoryPage");
+
 
   const hasDiscount =
     product.sale_price !== null && product.sale_price < product.price;
@@ -177,10 +177,6 @@ const ProductDetail = async ({ product, relatedProducts }: ProductDetailProps) =
                 key={related.id}
                 product={related}
                 index={index}
-                buyLabel={tCategory("buyOnline")}
-                outOfStockLabel={tCategory("outOfStock")}
-                discountLabel={tCategory("discount")}
-                currency={tCategory("currency")}
               />
             ))}
           </div>

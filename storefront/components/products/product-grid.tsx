@@ -50,10 +50,6 @@ const ProductGrid = async ({ products }: ProductGridProps) => {
                 key={product.id}
                 product={product}
                 index={index}
-                buyLabel={t("buyOnline")}
-                outOfStockLabel={t("outOfStock")}
-                discountLabel={t("discount")}
-                currency={t("currency")}
               />
             ))}
           </div>
