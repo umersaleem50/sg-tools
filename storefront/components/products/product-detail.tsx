@@ -125,7 +125,7 @@ const ProductDetail = async ({
 
             {/* Buy button */}
             <a
-              href={product.url}
+              href={`https://www.prodavnicaalata.rs/proizvodi/${product.slug}/`}
               target="_blank"
               rel="noopener noreferrer"
               className={`mt-6 inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-8 transition-colors ${

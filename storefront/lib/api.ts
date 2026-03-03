@@ -62,24 +62,11 @@ export async function getProductsByCategory(
   offset: number = 0,
   limit: number = 20,
 ): Promise<Product[]> {
-  try {
-    const response = await apiFetch<ApiProductsResponse>(
-      `/GET/products/?namespace=prodavnicaalata&category=${categorySlug}&limit=${offset},${limit}${HIDE_PARAMS}`,
-      locale,
-    );
-    if (response.data.products.length > 0) return response.data.products;
-  } catch {
-    // Category filter endpoint failed — try fallback
-  }
-
-  try {
-    const all = await getProducts(locale, 0, 20);
-    return all.filter((p) =>
-      p.categories.some((c) => c.slug === categorySlug),
-    );
-  } catch {
-    // Fallback filtering also failed
-  }
-
-  return [];
+  const response = await apiFetch<ApiProductsResponse>(
+    `/GET/products/?namespace=prodavnicaalata&limit=${offset},${limit}`,
+    locale,
+  );
+  return response.data.products.filter((p) =>
+    p.categories.some((c) => c.slug === categorySlug),
+  );
 }

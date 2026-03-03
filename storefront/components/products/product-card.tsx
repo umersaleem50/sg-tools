@@ -82,7 +82,7 @@ const ProductCard = async ({ product, index }: ProductCardProps) => {
           </div>
 
           <a
-            href={product.url}
+            href={`https://www.prodavnicaalata.rs/proizvodi/${product.slug}/`}
             target="_blank"
             rel="noopener noreferrer"
             className={`relative z-20 mt-3 inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 ${
