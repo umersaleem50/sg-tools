@@ -6,7 +6,6 @@ Marketing and product showcase site for the SG Tools brand by Stridon Group DOO.
 
 - **Next.js 16** (App Router) + TypeScript
 - **Tailwind CSS v4** with OKLCH color tokens
-- **next-intl** — English and Serbian (informal "ti" form)
 - **Deployed on Vercel**
 
 ## Architecture
