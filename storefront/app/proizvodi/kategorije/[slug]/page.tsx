@@ -25,6 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: category.metaTitle,
     description: category.metaDescription,
+    alternates: {
+      canonical: `https://prodavnicaalata.rs/proizvodi/kategorije/${slug}/`,
+    },
     openGraph: {
       title: category.metaTitle,
       description: category.metaDescription,

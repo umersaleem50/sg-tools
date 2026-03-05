@@ -3,6 +3,16 @@ import HeroHeader from "@/components/hero-header";
 import CategoryCard from "@/components/products/category-card";
 import Wrapper from "@/components/wrapper";
 import { getCategories } from "@/lib/categories";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Kategorije proizvoda | SG Tools",
+  description:
+    "Pregledaj kompletnu ponudu profesionalnog alata po kategorijama.",
+  alternates: {
+    canonical: "https://prodavnicaalata.rs/proizvodi/kategorije/",
+  },
+};
 
 const CategoriesPage = async () => {
   const categories = await getCategories();
