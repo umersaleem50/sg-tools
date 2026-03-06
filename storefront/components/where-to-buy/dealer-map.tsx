@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./dealer-map.css";
@@ -67,23 +66,111 @@ function createUserLocationIcon() {
   });
 }
 
-function MapController({
-  dealer,
-  markerRefs,
-}: {
-  dealer: Dealer | undefined;
-  markerRefs: React.RefObject<Map<string, L.Marker>>;
-}) {
-  const map = useMap();
+function buildPopupHtml(dealer: Dealer): string {
+  let html = `<div class="text-sm"><p class="font-semibold text-foreground">${dealer.name}</p>`;
+  if (dealer.address) html += `<p class="text-muted-foreground">${dealer.address}</p>`;
+  if (dealer.city) html += `<p class="text-muted-foreground">${dealer.city}</p>`;
+  if (dealer.phone) html += `<p class="text-muted-foreground">${dealer.phone}</p>`;
+  html += `</div>`;
+  return html;
+}
 
+export default function DealerMap({
+  dealers,
+  selectedDealerId,
+  onSelectDealer,
+  userLocation,
+}: DealerMapProps) {
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<L.Map | null>(null);
+  const markersRef = useRef<Map<string, L.Marker>>(new Map());
+  const userMarkerRef = useRef<L.Marker | null>(null);
+
+  // Stable refs for callbacks to avoid stale closures in marker click handlers
+  const onSelectDealerRef = useRef(onSelectDealer);
+  const selectedDealerIdRef = useRef(selectedDealerId);
+  onSelectDealerRef.current = onSelectDealer;
+  selectedDealerIdRef.current = selectedDealerId;
+
+  // Effect 1: Map initialization
   useEffect(() => {
-    if (dealer) {
-      map.flyTo([dealer.coordinates.lat, dealer.coordinates.lng], 13, {
-        duration: 1,
+    if (!mapContainerRef.current) return;
+
+    const map = L.map(mapContainerRef.current, {
+      center: [44.2, 20.9],
+      zoom: 7,
+    });
+
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    }).addTo(map);
+
+    mapRef.current = map;
+
+    return () => {
+      map.remove();
+      mapRef.current = null;
+      markersRef.current.clear();
+      userMarkerRef.current = null;
+    };
+  }, []);
+
+  // Effect 2: Sync dealer markers
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const dealerIds = new Set(dealers.map((d) => d.id));
+
+    // Remove markers for dealers no longer in list
+    for (const [id, marker] of markersRef.current) {
+      if (!dealerIds.has(id)) {
+        marker.remove();
+        markersRef.current.delete(id);
+      }
+    }
+
+    // Add new markers
+    for (const dealer of dealers) {
+      if (markersRef.current.has(dealer.id)) continue;
+
+      const marker = L.marker(
+        [dealer.coordinates.lat, dealer.coordinates.lng],
+        { icon: createMarkerIcon(dealer.id === selectedDealerIdRef.current) },
+      ).addTo(map);
+
+      marker.bindPopup(buildPopupHtml(dealer));
+
+      marker.on("click", () => {
+        const currentSelected = selectedDealerIdRef.current;
+        onSelectDealerRef.current(dealer.id === currentSelected ? null : dealer.id);
       });
 
-      const marker = markerRefs.current?.get(dealer.id);
+      markersRef.current.set(dealer.id, marker);
+    }
+  }, [dealers]);
+
+  // Effect 3: Respond to selection changes
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    // Update all marker icons
+    for (const dealer of dealers) {
+      const marker = markersRef.current.get(dealer.id);
       if (marker) {
+        marker.setIcon(createMarkerIcon(dealer.id === selectedDealerId));
+      }
+    }
+
+    if (selectedDealerId) {
+      const dealer = dealers.find((d) => d.id === selectedDealerId);
+      const marker = markersRef.current.get(selectedDealerId);
+      if (dealer && marker) {
+        map.flyTo([dealer.coordinates.lat, dealer.coordinates.lng], 13, {
+          duration: 1,
+        });
         const onMoveEnd = () => {
           marker.openPopup();
         };
@@ -95,90 +182,26 @@ function MapController({
     } else {
       map.closePopup();
     }
-  }, [dealer, map, markerRefs]);
+  }, [selectedDealerId, dealers]);
 
-  return null;
-}
-
-function UserLocationMarker({
-  location,
-}: {
-  location: { lat: number; lng: number };
-}) {
-  const map = useMap();
-
+  // Effect 4: User location marker
   useEffect(() => {
-    const marker = L.marker([location.lat, location.lng], {
-      icon: createUserLocationIcon(),
-      interactive: false,
-      zIndexOffset: 1000,
-    }).addTo(map);
+    const map = mapRef.current;
+    if (!map) return;
 
-    return () => {
-      marker.remove();
-    };
-  }, [map, location]);
-
-  return null;
-}
-
-export default function DealerMap({
-  dealers,
-  selectedDealerId,
-  onSelectDealer,
-  userLocation,
-}: DealerMapProps) {
-  const selectedDealer = dealers.find((d) => d.id === selectedDealerId);
-  const markerRefs = useRef<Map<string, L.Marker>>(new Map());
-
-  const setMarkerRef = useCallback((dealerId: string, marker: L.Marker | null) => {
-    if (marker) {
-      markerRefs.current.set(dealerId, marker);
-    } else {
-      markerRefs.current.delete(dealerId);
+    if (userMarkerRef.current) {
+      userMarkerRef.current.remove();
+      userMarkerRef.current = null;
     }
-  }, []);
 
-  return (
-    <MapContainer
-      center={[44.2, 20.9]}
-      zoom={7}
-      className="h-full w-full rounded-lg"
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-      />
-      <MapController dealer={selectedDealer} markerRefs={markerRefs} />
-      {userLocation && <UserLocationMarker location={userLocation} />}
-      {dealers.map((dealer) => (
-        <Marker
-          key={dealer.id}
-          ref={(marker) => setMarkerRef(dealer.id, marker as unknown as L.Marker | null)}
-          position={[dealer.coordinates.lat, dealer.coordinates.lng]}
-          icon={createMarkerIcon(dealer.id === selectedDealerId)}
-          eventHandlers={{
-            click: () => {
-              onSelectDealer(dealer.id === selectedDealerId ? null : dealer.id);
-            },
-          }}
-        >
-          <Popup>
-            <div className="text-sm">
-              <p className="font-semibold text-foreground">{dealer.name}</p>
-              {dealer.address && (
-                <p className="text-muted-foreground">{dealer.address}</p>
-              )}
-              {dealer.city && (
-                <p className="text-muted-foreground">{dealer.city}</p>
-              )}
-              {dealer.phone && (
-                <p className="text-muted-foreground">{dealer.phone}</p>
-              )}
-            </div>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
+    if (userLocation) {
+      userMarkerRef.current = L.marker([userLocation.lat, userLocation.lng], {
+        icon: createUserLocationIcon(),
+        interactive: false,
+        zIndexOffset: 1000,
+      }).addTo(map);
+    }
+  }, [userLocation]);
+
+  return <div ref={mapContainerRef} className="h-full w-full rounded-lg" />;
 }
