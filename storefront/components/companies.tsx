@@ -33,7 +33,7 @@ const Companies = () => {
 
         <Container delay={0.1}>
           <div className="mt-10 w-full relative overflow-hidden opacity-80 rounded-md">
-            <Marquee pauseOnHover className="[--duration:30s]">
+            <Marquee className="[--duration:30s]">
               {companies.map((company) => (
                 <Image
                   key={company.src}

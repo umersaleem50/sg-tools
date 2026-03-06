@@ -21,7 +21,7 @@ const Testimonials = () => {
     <div className="flex flex-col items-center justify-center relative w-full py-16 lg:py-24">
       <Wrapper>
         <div className="relative flex flex-col items-center justify-center overflow-hidden">
-          <Marquee pauseOnHover className="[--duration:80s] gap-8">
+          <Marquee className="[--duration:80s] gap-8">
             {TESTIMONIALS.map((item) => (
               <Item key={item.name} item={item} />
             ))}
