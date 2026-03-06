@@ -1,5 +1,4 @@
 import Logo from "@/components/Logo";
-import { buttonVariants } from "./ui/button";
 
 interface OpenGraphTemplateProps {
   title: string;
@@ -35,7 +34,7 @@ export default function OpenGraphTemplate({
         padding: "60px 60px",
         position: "relative",
         alignItems: "flex-start",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
       }}
     >
       <Logo width={300} />
@@ -74,14 +73,14 @@ export default function OpenGraphTemplate({
       <button
         style={{
           fontSize: "35px",
-          padding: "20px 40px",
-          backgroundColor: "#ffffff",
+          padding: "40px",
+          backgroundColor: "#9f0712",
           display: "flex",
           alignItems: "center",
           justifyItems: "center",
-          borderRadius: "200px",
+          borderRadius: "0.625rem",
+          color: "#fafafa",
         }}
-        className={buttonVariants({ variant: "default" })}
       >
         {btnText}
       </button>

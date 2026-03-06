@@ -1,5 +1,4 @@
 import OpenGraphTemplate from "@/components/OpenGraphTemplate";
-import { getTranslations } from "next-intl/server";
 import { ImageResponse } from "next/og";
 
 // Image metadata
@@ -14,13 +13,14 @@ export const contentType = "image/png";
 // Image generation
 export default async function OpenGraphImage() {
   // Font loading, process.cwd() is Next.js project directory
-  const t = await getTranslations("hero");
+
   return new ImageResponse(
     <OpenGraphTemplate
-      title={`${t("titleLine1")}. ${t("titleLine2")}`}
-      description={t("description")}
-      btnText={t("ctaPrimary")}
-      key={"about"}
+      title={"Profesionalni alati nastali iz 30 godina iskustva"}
+      description={
+        "Nastali iza pulta, oblikovani stvarnim potrebama majstora i tehničara. SG Tools donosi pouzdanost, trajnost i ergonomiju — po cenama koje imaju smisla."
+      }
+      btnText={"Kupi online"}
     />,
     { ...size },
   );
