@@ -49,7 +49,10 @@ export default function DealerList({
   const cardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   useEffect(() => {
-    if (selectedDealerId) {
+    if (
+      selectedDealerId &&
+      window.matchMedia("(min-width: 1024px)").matches
+    ) {
       const card = cardRefs.current.get(selectedDealerId);
       if (card) {
         card.scrollIntoView({ behavior: "smooth", block: "nearest" });

@@ -86,9 +86,8 @@ function MapController({
       if (marker) {
         const onMoveEnd = () => {
           marker.openPopup();
-          map.off("moveend", onMoveEnd);
         };
-        map.on("moveend", onMoveEnd);
+        map.once("moveend", onMoveEnd);
         return () => {
           map.off("moveend", onMoveEnd);
         };

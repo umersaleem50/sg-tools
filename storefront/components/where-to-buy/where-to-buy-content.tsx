@@ -36,6 +36,7 @@ export default function WhereToBuyContent() {
   const [locationError, setLocationError] = useState<string | null>(null);
   const [showScrollShadow, setShowScrollShadow] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
   const categories: { key: CategoryFilter; label: string }[] = [
     { key: "all", label: "Sve" },
@@ -179,6 +180,13 @@ export default function WhereToBuyContent() {
     );
   }
 
+  function handleSelectDealer(id: string | null) {
+    setSelectedDealerId(id);
+    if (id && !window.matchMedia("(min-width: 1024px)").matches) {
+      mapRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
   function handleClearLocation() {
     setUserLocation(null);
     setLocationStatus("idle");
@@ -274,11 +282,11 @@ export default function WhereToBuyContent() {
         {/* Main grid: list left, map right */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-6">
           {/* Map - shows first on mobile */}
-          <div className="order-1 lg:order-2 rounded-lg overflow-hidden border border-border h-[320px] sm:h-[380px] lg:h-[560px] z-10">
+          <div ref={mapRef} className="order-1 lg:order-2 rounded-lg overflow-hidden border border-border h-[320px] sm:h-[380px] lg:h-[560px] z-10">
             <DealerMap
               dealers={filteredDealers}
               selectedDealerId={selectedDealerId}
-              onSelectDealer={setSelectedDealerId}
+              onSelectDealer={handleSelectDealer}
               userLocation={userLocation}
             />
           </div>
@@ -292,7 +300,7 @@ export default function WhereToBuyContent() {
               <DealerList
                 dealers={filteredDealers}
                 selectedDealerId={selectedDealerId}
-                onSelectDealer={setSelectedDealerId}
+                onSelectDealer={handleSelectDealer}
                 distances={distances}
                 nearestDealerId={nearestDealerId}
               />
