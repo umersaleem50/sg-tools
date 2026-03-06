@@ -8,7 +8,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative pt-16 pb-8 md:pb-0 w-full overflow-hidden">
+    <footer className="relative pt-16 w-full overflow-hidden">
       <Wrapper>
         <Container animation="scaleUp" delay={0.3}>
           <div className="absolute top-0 w-4/5 mx-auto inset-x-0 h-px bg-linear-to-r from-[#050505] via-primary/40 to-[#050505]"></div>

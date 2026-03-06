@@ -9,13 +9,16 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { NAV_LINKS } from "@/constants/links";
-import type { Category } from "@/types/categories";
 import { cn } from "@/lib/utils";
+import type { Category } from "@/types/categories";
+import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import BuyOnlineButton from "./buy-online-button";
 import Container from "./container";
 import Wrapper from "./wrapper";
+
 const MobileMenu = dynamic(() => import("./mobile-menu"), { ssr: false });
 
 interface NavbarProps {
@@ -31,19 +34,25 @@ const Navbar = ({ categories }: NavbarProps) => {
         "fixed top-0 inset-x-0 z-50 w-full h-16 transition-all duration-300 backdrop-blur-md border-b border-border",
       )}
     >
-      <Wrapper className="flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <img
-            src={"/sg-tools-logo.svg"}
-            className="w-max h-3"
-            alt="Spiderly Logo"
-          />
-        </Link>
+      <Wrapper className="grid grid-cols-2 md:grid-cols-3 items-center">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Link href="/" className="flex items-center gap-2">
+            <img
+              src={"/sg-tools-logo.svg"}
+              className="w-max h-3"
+              alt="Spiderly Logo"
+            />
+          </Link>
+        </motion.div>
 
-        <div>
-          <div className="hidden md:flex">
-            <NavigationMenu>
-              <NavigationMenuList className="gap-x-1">
+        <div className="hidden md:flex justify-center">
+          <NavigationMenu>
+            <NavigationMenuList className="gap-x-1 flex-nowrap">
+              <AnimatePresence>
                 {NAV_LINKS.map((link, index) => (
                   <Container
                     key={index}
@@ -93,7 +102,7 @@ const Navbar = ({ categories }: NavbarProps) => {
                         <NavigationMenuLink asChild>
                           <Link
                             href={link.href}
-                            className="hover:text-foreground transition-all duration-500 px-1.5 text-sm font-medium text-muted-foreground"
+                            className="hover:text-foreground transition-all duration-500 px-1.5 text-sm font-medium text-muted-foreground whitespace-nowrap"
                           >
                             {link.label}
                           </Link>
@@ -102,29 +111,20 @@ const Navbar = ({ categories }: NavbarProps) => {
                     </NavigationMenuItem>
                   </Container>
                 ))}
-                <Container animation="fadeDown" delay={0.1 * NAV_LINKS.length}>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href="/kontakt"
-                        className="hover:text-foreground transition-all duration-500 px-1.5 text-sm font-medium text-muted-foreground"
-                      >
-                        Kontakt
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                </Container>
-              </NavigationMenuList>
-            </NavigationMenu>
-          </div>
+              </AnimatePresence>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
 
+        <div className="flex items-center justify-end gap-x-4">
           <Container animation="fadeLeft" delay={0.1}>
-            <div className="flex items-center gap-x-4">
-              <div className="md:hidden">
-                <MobileMenu categories={categories} />
-              </div>
-            </div>
+            <BuyOnlineButton size="sm" className="hidden md:inline-flex" />
           </Container>
+          <div className="md:hidden">
+            <Container animation="fadeLeft" delay={0.1}>
+              <MobileMenu categories={categories} />
+            </Container>
+          </div>
         </div>
       </Wrapper>
     </header>

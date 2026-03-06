@@ -8,6 +8,7 @@ export const NAV_LINKS: readonly NavLink[] = [
   { label: "O nama", href: "/o-nama" },
   { label: "Česta pitanja", href: "/cesta-pitanja" },
   { label: "Gde kupiti", href: "/gde-kupiti" },
+  { label: "Kontakt", href: "/kontakt" },
 ];
 
 export const PRODUCT_LINKS = [

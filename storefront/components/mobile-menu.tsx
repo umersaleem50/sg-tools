@@ -19,6 +19,7 @@ import { NAV_LINKS } from "@/constants/links";
 import type { Category } from "@/types/categories";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
+import BuyOnlineButton from "./buy-online-button";
 
 interface MobileMenuProps {
   categories: Category[];
@@ -80,9 +81,7 @@ const MobileMenu = ({ categories }: MobileMenuProps) => {
             ),
           )}
           <SheetClose asChild>
-            <Link href="/kontakt" className="text-lg font-medium w-full py-2">
-              Kontakt
-            </Link>
+            <BuyOnlineButton className="mt-4" />
           </SheetClose>
         </div>
       </SheetContent>
