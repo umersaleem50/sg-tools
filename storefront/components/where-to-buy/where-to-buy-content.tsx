@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import type { DealerCategory } from "@/types/dealers";
 import { LocateFixed, Search, ShieldAlert, X } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import DealerList from "./dealer-list";
 
 const DealerMap = dynamic(() => import("./dealer-map"), {
@@ -34,6 +34,8 @@ export default function WhereToBuyContent() {
   } | null>(null);
   const [locationStatus, setLocationStatus] = useState<LocationStatus>("idle");
   const [locationError, setLocationError] = useState<string | null>(null);
+  const [showScrollShadow, setShowScrollShadow] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const categories: { key: CategoryFilter; label: string }[] = [
     { key: "all", label: "Sve" },
@@ -104,6 +106,22 @@ export default function WhereToBuyContent() {
     const timer = setTimeout(dismissError, 5000);
     return () => clearTimeout(timer);
   }, [locationError, dismissError]);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const checkScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      const isScrollable = scrollHeight > clientHeight;
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 10;
+      setShowScrollShadow(isScrollable && !atBottom);
+    };
+
+    checkScroll();
+    container.addEventListener("scroll", checkScroll);
+    return () => container.removeEventListener("scroll", checkScroll);
+  }, [filteredDealers]);
 
   function handleFindNearest() {
     if (!navigator.geolocation) {
@@ -266,13 +284,24 @@ export default function WhereToBuyContent() {
           </div>
 
           {/* List */}
-          <div className="order-2 lg:order-1 lg:max-h-[560px] lg:overflow-y-auto">
-            <DealerList
-              dealers={filteredDealers}
-              selectedDealerId={selectedDealerId}
-              onSelectDealer={setSelectedDealerId}
-              distances={distances}
-              nearestDealerId={nearestDealerId}
+          <div className="relative order-2 lg:order-1">
+            <div
+              ref={scrollContainerRef}
+              className="lg:max-h-[560px] lg:overflow-y-auto"
+            >
+              <DealerList
+                dealers={filteredDealers}
+                selectedDealerId={selectedDealerId}
+                onSelectDealer={setSelectedDealerId}
+                distances={distances}
+                nearestDealerId={nearestDealerId}
+              />
+            </div>
+            <div
+              className={cn(
+                "pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent transition-opacity duration-300 hidden lg:block",
+                showScrollShadow ? "opacity-100" : "opacity-0",
+              )}
             />
           </div>
         </div>
