@@ -118,7 +118,11 @@ const Navbar = ({ categories }: NavbarProps) => {
 
         <div className="flex items-center justify-end gap-x-4">
           <Container animation="fadeLeft" delay={0.1}>
-            <BuyOnlineButton size="sm" className="hidden md:inline-flex" />
+            <BuyOnlineButton
+              size="sm"
+              variant={"outline"}
+              className="hidden md:inline-flex"
+            />
           </Container>
           <div className="md:hidden">
             <Container animation="fadeLeft" delay={0.1}>

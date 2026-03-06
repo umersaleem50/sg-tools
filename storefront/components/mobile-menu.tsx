@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -9,12 +15,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { NAV_LINKS } from "@/constants/links";
 import type { Category } from "@/types/categories";
 import { MenuIcon } from "lucide-react";
@@ -81,7 +81,7 @@ const MobileMenu = ({ categories }: MobileMenuProps) => {
             ),
           )}
           <SheetClose asChild>
-            <BuyOnlineButton className="mt-4" />
+            <BuyOnlineButton className="mt-4" variant={"outline"} />
           </SheetClose>
         </div>
       </SheetContent>
