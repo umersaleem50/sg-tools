@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import { buttonVariants } from "./ui/button";
 
 interface OpenGraphTemplateProps {
   title: string;
@@ -80,6 +81,7 @@ export default function OpenGraphTemplate({
           justifyItems: "center",
           borderRadius: "200px",
         }}
+        className={buttonVariants({ variant: "default" })}
       >
         {btnText}
       </button>

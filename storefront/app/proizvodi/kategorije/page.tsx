@@ -3,12 +3,7 @@ import HeroHeader from "@/components/hero-header";
 import CategoryCard from "@/components/products/category-card";
 import Wrapper from "@/components/wrapper";
 import { getCategories } from "@/lib/categories";
-<<<<<<< HEAD:storefront/app/proizvodi/kategorije/page.tsx
 import type { Metadata } from "next";
-=======
-import { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
->>>>>>> 4791a63 (+template for open-graph and metadata generation for rest of page):storefront/app/[locale]/products/categories/page.tsx
 
 export const metadata: Metadata = {
   title: "Kategorije proizvoda | SG Tools",
@@ -19,26 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-<<<<<<< HEAD:storefront/app/proizvodi/kategorije/page.tsx
 const CategoriesPage = async () => {
-=======
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("productsPage");
-
-  return {
-    title: t("title"),
-    description: t("description"),
-  };
-}
-
-const CategoriesPage = async ({ params }: Props) => {
-  const { locale } = await params;
-  setRequestLocale(locale);
-
-  const t = await getTranslations("productsPage");
-  const tList = await getTranslations("categoriesList");
-  const items = tList.raw("items") as Array<{ title: string; desc: string }>;
->>>>>>> 4791a63 (+template for open-graph and metadata generation for rest of page):storefront/app/[locale]/products/categories/page.tsx
   const categories = await getCategories();
 
   return (
