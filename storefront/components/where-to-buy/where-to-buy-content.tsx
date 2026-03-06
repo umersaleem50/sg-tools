@@ -282,7 +282,7 @@ export default function WhereToBuyContent() {
         {/* Main grid: list left, map right */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-6">
           {/* Map - shows first on mobile */}
-          <div ref={mapRef} className="order-1 lg:order-2 rounded-lg overflow-hidden border border-border h-[320px] sm:h-[380px] lg:h-[560px] z-10">
+          <div ref={mapRef} className="order-1 lg:order-2 rounded-lg overflow-hidden border border-border h-[320px] sm:h-[380px] lg:h-[560px] z-10 scroll-mt-20">
             <DealerMap
               dealers={filteredDealers}
               selectedDealerId={selectedDealerId}
