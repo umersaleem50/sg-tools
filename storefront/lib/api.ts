@@ -1,11 +1,11 @@
 import type { Product, ProductsResult, SitemapEntry } from "@/types/products";
 import type { Category } from "@/types/categories";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.API_URL;
 const BRAND_SLUG = "sg-tools";
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
-  if (!API_URL) throw new Error("NEXT_PUBLIC_API_URL is required");
+  if (!API_URL) throw new Error("API_URL is required");
 
   const res = await fetch(`${API_URL}${path}`, {
     ...options,

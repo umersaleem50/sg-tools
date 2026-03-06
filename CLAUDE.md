@@ -35,7 +35,7 @@ npm run lint     # Run ESLint
 - Use `NEXT_PUBLIC_` prefix for client-accessible vars
 - Use `.env.local` for local development secrets (gitignored)
 - Key variables:
-  - `NEXT_PUBLIC_API_URL` — Base URL for the products REST API
+  - `API_URL` — Base URL for the products REST API (server-only)
 
 ## Architecture
 
