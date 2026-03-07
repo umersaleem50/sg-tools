@@ -3,6 +3,7 @@ import HeroHeader from "@/components/hero-header";
 import CategoryCard from "@/components/products/category-card";
 import Wrapper from "@/components/wrapper";
 import { getCategories } from "@/lib/categories";
+import type { Category } from "@/types/categories";
 import { Package } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -16,7 +17,12 @@ export const metadata: Metadata = {
 };
 
 const CategoriesPage = async () => {
-  const categories = await getCategories();
+  let categories: Category[] = [];
+  try {
+    categories = await getCategories();
+  } catch (error) {
+    console.error("Failed to fetch categories:", error);
+  }
 
   return (
     <div>

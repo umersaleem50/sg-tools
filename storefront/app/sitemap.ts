@@ -37,7 +37,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // Dynamic category pages
-  const slugs = await getCategorySlugs();
+  let slugs: string[] = [];
+  try {
+    slugs = await getCategorySlugs();
+  } catch (error) {
+    console.error("Failed to fetch category slugs for sitemap:", error);
+  }
   for (const slug of slugs) {
     entries.push({
       url: `${BASE_URL}/proizvodi/kategorije/${slug}`,

@@ -33,31 +33,36 @@ function truncate(text: string, maxLength: number): string {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  try {
+    const product = await getProductBySlug(slug);
 
-  if (!product) {
-    return {};
-  }
+    if (!product) {
+      return {};
+    }
 
-  const description = truncate(
-    product.metaDescription || product.description || "",
-    155,
-  );
+    const description = truncate(
+      product.metaDescription || product.description || "",
+      155,
+    );
 
-  return {
-    title: product.metaTitle || product.title,
-    description,
-    alternates: {
-      canonical: `https://prodavnicaalata.rs/proizvodi/${slug}/`,
-    },
-    openGraph: {
+    return {
       title: product.metaTitle || product.title,
       description,
-      images: [{ url: product.ogImageUrl || product.imageUrl }].filter(
-        (img) => img.url,
-      ),
-    },
-  };
+      alternates: {
+        canonical: `https://prodavnicaalata.rs/proizvodi/${slug}/`,
+      },
+      openGraph: {
+        title: product.metaTitle || product.title,
+        description,
+        images: [{ url: product.ogImageUrl || product.imageUrl }].filter(
+          (img) => img.url,
+        ),
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch product metadata:", error);
+    return {};
+  }
 }
 
 const ProductPage = async ({ params }: Props) => {
