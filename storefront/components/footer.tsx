@@ -75,6 +75,26 @@ const Footer = () => {
         </Container>
 
         <div className="grid gap-10 grid-cols-3 xl:grid-cols-4 xl:gap-8">
+          {/* Link columns */}
+          <FooterLinkColumn
+            title="Proizvodi"
+            links={PRODUCTS_FOOTER_LINKS}
+            animation="fadeUp"
+            delay={0.5}
+          />
+          <FooterLinkColumn
+            title="Kompanija"
+            links={COMPANY_FOOTER_LINKS}
+            animation="fadeUp"
+            delay={0.6}
+          />
+          <FooterLinkColumn
+            title="Podrška"
+            links={SUPPORT_FOOTER_LINKS}
+            animation="fadeUp"
+            delay={0.7}
+          />
+
           {/* Logo column */}
           <Container
             animation="fadeRight"
@@ -88,13 +108,11 @@ const Footer = () => {
                   alt="SG Tools Logo"
                   width={32}
                   height={32}
-                  className="w-24 h-12"
+                  className="w-24 h-8"
                 />
               </div>
               <p className="text-muted-foreground mt-4 text-sm">
-                Profesionalni alati nastali iz
-                <br />
-                30 godina praktičnog iskustva.
+                Profesionalni alati nastali iz 30 godina iskustva.
               </p>
               <div className="mt-4 text-sm text-muted-foreground px-4 py-2 cursor-pointer rounded-full border border-border/40 bg-foreground/5 hover:bg-foreground/10 transition-colors duration-300">
                 <a href="tel:+381111234567">
@@ -120,26 +138,6 @@ const Footer = () => {
               </div>
             </div>
           </Container>
-
-          {/* Link columns */}
-          <FooterLinkColumn
-            title="Proizvodi"
-            links={PRODUCTS_FOOTER_LINKS}
-            animation="fadeUp"
-            delay={0.5}
-          />
-          <FooterLinkColumn
-            title="Kompanija"
-            links={COMPANY_FOOTER_LINKS}
-            animation="fadeUp"
-            delay={0.6}
-          />
-          <FooterLinkColumn
-            title="Podrška"
-            links={SUPPORT_FOOTER_LINKS}
-            animation="fadeUp"
-            delay={0.7}
-          />
         </div>
 
         {/* Copyright bar */}
