@@ -19,7 +19,7 @@ const CategoriesPage = async () => {
   const categories = await getCategories();
 
   return (
-    <div className="w-full relative flex flex-col pt-16">
+    <div>
       <HeroHeader
         title="Kategorije proizvoda"
         description="Pregledaj kompletnu ponudu profesionalnog alata po kategorijama."

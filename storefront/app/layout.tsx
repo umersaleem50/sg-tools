@@ -61,12 +61,15 @@ export default async function RootLayout({
               name: "SG Tools",
               url: "https://sgtools.rs",
               logo: "https://sgtools.rs/logo-white.svg",
-              sameAs: ["https://www.prodavnicaalata.rs/", "https://www.stridon.rs/"],
+              sameAs: [
+                "https://www.prodavnicaalata.rs/",
+                "https://www.stridon.rs/",
+              ],
             }),
           }}
         />
         <Navbar categories={categories} />
-        <main>{children}</main>
+        <main className="pt-16">{children}</main>
         <Footer />
         <Toaster />
       </body>

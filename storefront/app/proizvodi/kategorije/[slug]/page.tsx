@@ -52,7 +52,7 @@ const CategoryPage = async ({ params }: Props) => {
   const categoryProducts = await getProductsByCategory(slug);
 
   return (
-    <div className="w-full relative flex flex-col pt-16">
+    <div>
       <HeroHeader title={categoryName} description={categoryDesc} />
 
       <Wrapper className="pb-16">
