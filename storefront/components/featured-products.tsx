@@ -1,11 +1,17 @@
 import { getProducts } from "@/lib/api";
+import type { Product } from "@/types/products";
 import Container from "./container";
 import ProductCard from "./products/product-card";
 import Section from "./section";
 import Wrapper from "./wrapper";
 
 const FeaturedProducts = async () => {
-  const products = await getProducts(0, 4);
+  let products: Product[] = [];
+  try {
+    products = await getProducts(0, 4);
+  } catch {
+    return null;
+  }
 
   if (!products || products.length === 0) return null;
 

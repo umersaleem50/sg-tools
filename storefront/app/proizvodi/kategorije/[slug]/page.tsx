@@ -3,6 +3,7 @@ import HeroHeader from "@/components/hero-header";
 import ProductGrid from "@/components/products/product-grid";
 import Wrapper from "@/components/wrapper";
 import { getProductsByCategory } from "@/lib/api";
+import type { Product } from "@/types/products";
 import { getCategoryBySlug, getCategorySlugs } from "@/lib/categories";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -14,8 +15,12 @@ type Props = {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const slugs = await getCategorySlugs();
-  return slugs.map((slug) => ({ slug }));
+  try {
+    const slugs = await getCategorySlugs();
+    return slugs.map((slug) => ({ slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -45,7 +50,12 @@ const CategoryPage = async ({ params }: Props) => {
   const categoryName = category.name;
   const categoryDesc = category.description;
 
-  const categoryProducts = await getProductsByCategory(slug);
+  let categoryProducts: Product[] = [];
+  try {
+    categoryProducts = await getProductsByCategory(slug);
+  } catch {
+    categoryProducts = [];
+  }
 
   return (
     <div className="w-full relative flex flex-col pt-16">

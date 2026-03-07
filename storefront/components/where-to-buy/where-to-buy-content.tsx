@@ -166,9 +166,7 @@ export default function WhereToBuyContent() {
       (error) => {
         if (error.code === error.PERMISSION_DENIED) {
           setLocationStatus("denied");
-          setLocationError(
-            "Pristup lokaciji je odbijen. Pretraži po gradu.",
-          );
+          setLocationError("Pristup lokaciji je odbijen. Pretraži po gradu.");
         } else {
           setLocationStatus("unavailable");
           setLocationError(
@@ -282,7 +280,10 @@ export default function WhereToBuyContent() {
         {/* Main grid: list left, map right */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-6">
           {/* Map - shows first on mobile */}
-          <div ref={mapRef} className="order-1 lg:order-2 rounded-lg overflow-hidden border border-border h-[320px] sm:h-[380px] lg:h-[560px] z-10 scroll-mt-20">
+          <div
+            ref={mapRef}
+            className="order-1 lg:order-2 rounded-lg overflow-hidden border border-border h-[320px] sm:h-[380px] lg:h-[560px] z-10 scroll-mt-20"
+          >
             <DealerMap
               dealers={filteredDealers}
               selectedDealerId={selectedDealerId}
@@ -307,7 +308,7 @@ export default function WhereToBuyContent() {
             </div>
             <div
               className={cn(
-                "pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent transition-opacity duration-300 hidden lg:block",
+                "pointer-events-none absolute bottom-0 left-0 right-0 h-5 bg-gradient-to-t from-background to-transparent transition-opacity duration-300 hidden lg:block",
                 showScrollShadow ? "opacity-100" : "opacity-0",
               )}
             />

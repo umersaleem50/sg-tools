@@ -5,6 +5,7 @@ import {
   getProducts,
   getProductsByCategory,
 } from "@/lib/api";
+import type { Product } from "@/types/products";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -53,9 +54,14 @@ const ProductPage = async ({ params }: Props) => {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  let relatedProducts = product.categorySlug
-    ? await getProductsByCategory(product.categorySlug)
-    : [];
+  let relatedProducts: Product[] = [];
+  try {
+    relatedProducts = product.categorySlug
+      ? await getProductsByCategory(product.categorySlug)
+      : [];
+  } catch {
+    relatedProducts = [];
+  }
   relatedProducts = relatedProducts
     .filter((p) => p.id !== product.id)
     .slice(0, 4);

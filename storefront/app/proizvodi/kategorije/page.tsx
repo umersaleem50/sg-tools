@@ -2,6 +2,7 @@ import CTA from "@/components/cta";
 import HeroHeader from "@/components/hero-header";
 import CategoryCard from "@/components/products/category-card";
 import Wrapper from "@/components/wrapper";
+import type { Category } from "@/types/categories";
 import { getCategories } from "@/lib/categories";
 import type { Metadata } from "next";
 
@@ -15,7 +16,12 @@ export const metadata: Metadata = {
 };
 
 const CategoriesPage = async () => {
-  const categories = await getCategories();
+  let categories: Category[] = [];
+  try {
+    categories = await getCategories();
+  } catch {
+    categories = [];
+  }
 
   return (
     <div className="w-full relative flex flex-col pt-16">
