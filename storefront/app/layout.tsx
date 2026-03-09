@@ -21,6 +21,14 @@ export const metadata: Metadata = {
     siteName: "SG Tools",
     locale: "sr_RS",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "SG Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
