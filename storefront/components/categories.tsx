@@ -4,9 +4,8 @@ import Section from "@/components/section";
 import Wrapper from "@/components/wrapper";
 import { getCategories } from "@/lib/api";
 import type { Category } from "@/types/categories";
-import { Suspense } from "react";
 
-async function CategoriesGrid() {
+const Categories = async () => {
   let categories: Category[] = [];
   try {
     categories = await getCategories();
@@ -17,22 +16,6 @@ async function CategoriesGrid() {
 
   if (!categories || categories.length === 0) return null;
 
-  return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
-      {categories.map((category, index) => (
-        <CategoryCard
-          key={category.slug}
-          category={category}
-          title={category.name}
-          description={category.description}
-          index={index}
-        />
-      ))}
-    </div>
-  );
-}
-
-const Categories = () => {
   return (
     <Section className="relative">
       <Wrapper>
@@ -48,9 +31,17 @@ const Categories = () => {
         </Container>
 
         <div className="w-full mt-10">
-          <Suspense fallback={null}>
-            <CategoriesGrid />
-          </Suspense>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
+            {categories.map((category, index) => (
+              <CategoryCard
+                key={category.slug}
+                category={category}
+                title={category.name}
+                description={category.description}
+                index={index}
+              />
+            ))}
+          </div>
         </div>
       </Wrapper>
     </Section>

@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/api";
+import { getAllProducts } from "@/lib/api";
 import type { Product } from "@/types/products";
 import Container from "./container";
 import ProductCard from "./products/product-card";
@@ -8,8 +8,9 @@ import Wrapper from "./wrapper";
 const FeaturedProducts = async () => {
   let products: Product[] = [];
   try {
-    products = await getProducts(0, 4);
-  } catch {
+    products = await getAllProducts(0, 4);
+  } catch (error) {
+    console.error("Error fetching products", error);
     return null;
   }
 

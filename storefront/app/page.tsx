@@ -6,14 +6,19 @@ import Features from "@/components/features";
 import Hero from "@/components/hero";
 import Stats from "@/components/stats";
 import Testimonials from "@/components/testimonials";
+import { Suspense } from "react";
 
 const HomePage = () => {
   return (
     <div>
       <Hero />
       <Companies />
-      <FeaturedProducts />
-      <Categories />
+      <Suspense fallback={null}>
+        <FeaturedProducts />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Categories />
+      </Suspense>
       <Features />
       <Stats />
       <Testimonials />
