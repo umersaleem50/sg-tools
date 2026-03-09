@@ -54,9 +54,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: product.metaTitle || product.title,
         description,
-        images: [{ url: product.ogImageUrl || product.imageUrl }].filter(
-          (img) => img.url,
-        ),
       },
     };
   } catch (error) {

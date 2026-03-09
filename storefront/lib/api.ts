@@ -1,5 +1,5 @@
-import type { Product, ProductsResult, SitemapEntry } from "@/types/products";
 import type { Category } from "@/types/categories";
+import type { Product, ProductsResult, SitemapEntry } from "@/types/products";
 
 export class ApiError extends Error {
   constructor(
@@ -28,14 +28,14 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   });
 
   if (!res.ok)
-    throw new ApiError(res.status, `API error: ${res.status} ${res.statusText}`);
+    throw new ApiError(
+      res.status,
+      `API error: ${res.status} ${res.statusText}`,
+    );
   return res.json() as Promise<T>;
 }
 
-export async function getProducts(
-  offset = 0,
-  limit = 20,
-): Promise<Product[]> {
+export async function getProducts(offset = 0, limit = 20): Promise<Product[]> {
   const result = await apiFetch<ProductsResult>(
     "/api/Storefront/FilteredProducts",
     {
@@ -51,9 +51,7 @@ export async function getProducts(
   return result.data;
 }
 
-export async function getProductBySlug(
-  slug: string,
-): Promise<Product | null> {
+export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
     return await apiFetch<Product>(
       `/api/Storefront/ProductBySlug?slug=${encodeURIComponent(slug)}`,
