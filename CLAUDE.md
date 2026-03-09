@@ -2,11 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Critical principles
+
+- **Push back on hacks.** If a request leads to a fragile workaround, say so and propose the clean solution. Never silently accept shortcuts.
+- **Be critical of every decision** — naming, architecture, data flow, UX. Question whether the approach would hold up at the scale and quality bar of Shopify, Magento, IKEA, Temu, AliExpress, or Alibaba.
+- **Consult official docs when unsure.** Frameworks change fast. When writing Next.js code, verify APIs and patterns against the [Next.js docs](https://nextjs.org/docs) using WebFetch — don't rely solely on training data, which may be outdated.
+
 ## Project Overview
 
 **Company**: Stridon Group DOO (stridon.rs) — a tool company with an online shop at prodavnicaalata.rs.
 
-**This project**: SG Tools brand website (sgtools.rs) — a marketing and product showcase site built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4. Deployed on Vercel.
+**This project**: SG Tools brand website (sgtools.rs) — a marketing and product showcase site built with Next.js 16 (App Router) (https://nextjs.org/docs), TypeScript, and Tailwind CSS v4. Deployed on Vercel.
 
 **Purpose**: Display SG Tools products (fetched server-side from the main platform's REST API) with buy links pointing to prodavnicaalata.rs. This site is display-only — no cart or checkout.
 
@@ -52,16 +58,16 @@ The Next.js application lives entirely within `storefront/`. There is no monorep
 
 ### Route Structure
 
-| Directory | URL |
-|---|---|
-| `app/page.tsx` | `/` |
-| `app/o-nama/` | `/o-nama` |
-| `app/kontakt/` | `/kontakt` |
-| `app/cesta-pitanja/` | `/cesta-pitanja` |
-| `app/gde-kupiti/` | `/gde-kupiti` |
-| `app/proizvodi/kategorije/` | `/proizvodi/kategorije` |
+| Directory                          | URL                            |
+| ---------------------------------- | ------------------------------ |
+| `app/page.tsx`                     | `/`                            |
+| `app/o-nama/`                      | `/o-nama`                      |
+| `app/kontakt/`                     | `/kontakt`                     |
+| `app/cesta-pitanja/`               | `/cesta-pitanja`               |
+| `app/gde-kupiti/`                  | `/gde-kupiti`                  |
+| `app/proizvodi/kategorije/`        | `/proizvodi/kategorije`        |
 | `app/proizvodi/kategorije/[slug]/` | `/proizvodi/kategorije/[slug]` |
-| `app/proizvodi/[slug]/` | `/proizvodi/[slug]` |
+| `app/proizvodi/[slug]/`            | `/proizvodi/[slug]`            |
 
 ### Key Patterns
 
