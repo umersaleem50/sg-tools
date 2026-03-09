@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function GlobalError({
   reset,
 }: {
@@ -50,22 +52,46 @@ export default function GlobalError({
           >
             Došlo je do neočekivane greške. Probaj ponovo.
           </p>
-          <button
-            onClick={reset}
-            type="button"
+          <div
             style={{
               marginTop: "1.5rem",
-              padding: "0.5rem 1rem",
-              borderRadius: 8,
-              border: "1px solid #27272a",
-              backgroundColor: "transparent",
-              color: "#fafafa",
-              cursor: "pointer",
-              fontSize: "0.875rem",
+              display: "flex",
+              gap: "0.75rem",
+              justifyContent: "center",
             }}
           >
-            Probaj ponovo
-          </button>
+            <button
+              onClick={reset}
+              type="button"
+              style={{
+                padding: "0.5rem 1rem",
+                borderRadius: 8,
+                border: "1px solid #27272a",
+                backgroundColor: "transparent",
+                color: "#fafafa",
+                cursor: "pointer",
+                fontSize: "0.875rem",
+              }}
+            >
+              Probaj ponovo
+            </button>
+            <Link
+              href="/"
+              style={{
+                padding: "0.5rem 1rem",
+                borderRadius: 8,
+                border: "1px solid transparent",
+                backgroundColor: "transparent",
+                color: "#a1a1aa",
+                textDecoration: "none",
+                fontSize: "0.875rem",
+                display: "inline-flex",
+                alignItems: "center",
+              }}
+            >
+              Početna
+            </Link>
+          </div>
         </div>
       </body>
     </html>
