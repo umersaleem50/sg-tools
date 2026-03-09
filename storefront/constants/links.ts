@@ -1,3 +1,5 @@
+export const SITE_URL = "https://www.sgtools.rs";
+
 export interface NavLink {
   label: string;
   href: string;
@@ -13,6 +15,7 @@ export const NAV_LINKS: readonly NavLink[] = [
 ];
 
 export const PRODUCTS_FOOTER_LINKS: readonly NavLink[] = [
+  { label: "Svi proizvodi", href: "/proizvodi" },
   { label: "Kategorije", href: "/proizvodi/kategorije" },
   {
     label: "Kupi online",

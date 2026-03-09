@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 
+import { SITE_URL } from "@/constants/links";
 import { getSitemapCategories, getSitemapProducts } from "@/lib/api";
-
-const BASE_URL = "https://sgtools.rs";
 
 const staticPages = [
   { path: "/", changeFrequency: "weekly" as const, priority: 1.0 },
@@ -33,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
   for (const page of staticPages) {
     entries.push({
-      url: `${BASE_URL}${page.path}`,
+      url: `${SITE_URL}${page.path}`,
       lastModified,
       changeFrequency: page.changeFrequency,
       priority: page.priority,
@@ -46,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     for (const category of categories) {
       entries.push({
-        url: `${BASE_URL}/proizvodi/kategorije/${category.slug}`,
+        url: `${SITE_URL}/proizvodi/kategorije/${category.slug}`,
         lastModified: new Date(category.modifiedAt),
         changeFrequency: "weekly",
         priority: 0.8,
@@ -62,7 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     for (const entry of products) {
       entries.push({
-        url: `${BASE_URL}/proizvodi/${entry.slug}`,
+        url: `${SITE_URL}/proizvodi/${entry.slug}`,
         lastModified: new Date(entry.modifiedAt),
         changeFrequency: "weekly",
         priority: 0.7,

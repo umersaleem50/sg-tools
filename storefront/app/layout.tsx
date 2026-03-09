@@ -3,13 +3,14 @@ import Navbar from "@/components/navbar";
 import NavbarWithCategories from "@/components/navbar-with-categories";
 import { Toaster } from "@/components/ui/sonner";
 import { base, heading } from "@/constants/fonts";
+import { SITE_URL } from "@/constants/links";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Suspense, type ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sgtools.rs"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "SG Tools — Profesionalni alati sa 30 godina iskustva",
     template: "%s | SG Tools",
@@ -62,8 +63,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "SG Tools",
-              url: "https://sgtools.rs",
-              logo: "https://sgtools.rs/logo-white.svg",
+              url: SITE_URL,
+              logo: `${SITE_URL}/logo-white.svg`,
               parentOrganization: {
                 "@type": "Organization",
                 name: "Stridon Group DOO",
