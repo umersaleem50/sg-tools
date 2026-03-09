@@ -2,14 +2,15 @@ import Container from "@/components/container";
 import CategoryCard from "@/components/products/category-card";
 import Section from "@/components/section";
 import Wrapper from "@/components/wrapper";
-import { getCategories } from "@/lib/categories";
+import { getCategories } from "@/lib/api";
 import type { Category } from "@/types/categories";
 
 const Categories = async () => {
   let categories: Category[] = [];
   try {
     categories = await getCategories();
-  } catch {
+  } catch (error) {
+    console.error("Failed to fetch categories", error);
     return null;
   }
 

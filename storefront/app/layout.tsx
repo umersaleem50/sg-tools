@@ -1,12 +1,11 @@
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import NavbarWithCategories from "@/components/navbar-with-categories";
 import { Toaster } from "@/components/ui/sonner";
 import { base, heading } from "@/constants/fonts";
-import { getCategories } from "@/lib/categories";
 import { cn } from "@/lib/utils";
-import type { Category } from "@/types/categories";
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -46,19 +45,7 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  let categories: Category[] = [];
-  try {
-    categories = await getCategories();
-  } catch (error) {
-    console.error("Failed to fetch categories for navigation:", error);
-    categories = [];
-  }
-
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="sr">
       <body
@@ -77,17 +64,17 @@ export default async function RootLayout({
               name: "SG Tools",
               url: "https://sgtools.rs",
               logo: "https://sgtools.rs/logo-white.svg",
-              sameAs: [
-                "https://www.prodavnicaalata.rs/",
-                "https://www.stridon.rs/",
-                "https://www.facebook.com/prodavnicaalataa",
-                "https://www.instagram.com/prodavnicaalata/",
-                "https://www.youtube.com/@prodavnicaalata5203",
-              ],
+              parentOrganization: {
+                "@type": "Organization",
+                name: "Stridon Group DOO",
+                url: "https://www.stridon.rs",
+              },
             }),
           }}
         />
-        <Navbar categories={categories} />
+        <Suspense fallback={<Navbar categories={[]} />}>
+          <NavbarWithCategories />
+        </Suspense>
         <main className="pt-16">{children}</main>
         <Footer />
         <Toaster />

@@ -12,14 +12,12 @@ import { NAV_LINKS } from "@/constants/links";
 import { cn } from "@/lib/utils";
 import type { Category } from "@/types/categories";
 import { AnimatePresence, motion } from "framer-motion";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import BuyOnlineButton from "./buy-online-button";
 import Container from "./container";
+import MobileMenu from "./mobile-menu";
 import Wrapper from "./wrapper";
-
-const MobileMenu = dynamic(() => import("./mobile-menu"), { ssr: false });
 
 interface NavbarProps {
   categories: Category[];
