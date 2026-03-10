@@ -1,6 +1,7 @@
 import CTA from "@/components/cta";
 import ProductDetail from "@/components/products/product-detail";
 import RelatedProducts from "@/components/products/related-products";
+import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 import { getProductBySlug, getSitemapProducts } from "@/lib/api";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -57,12 +58,14 @@ const ProductPage = async ({ params }: Props) => {
     <div>
       <ProductDetail product={product} />
       {product.categorySlug && (
-        <Suspense fallback={null}>
-          <RelatedProducts
-            categorySlug={product.categorySlug}
-            excludeProductId={product.id}
-          />
-        </Suspense>
+        <SectionErrorBoundary>
+          <Suspense fallback={null}>
+            <RelatedProducts
+              categorySlug={product.categorySlug}
+              excludeProductId={product.id}
+            />
+          </Suspense>
+        </SectionErrorBoundary>
       )}
       <CTA />
     </div>

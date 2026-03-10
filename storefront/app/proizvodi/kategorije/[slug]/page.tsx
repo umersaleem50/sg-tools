@@ -2,16 +2,15 @@ import CTA from "@/components/cta";
 import HeroHeader from "@/components/hero-header";
 import { ListingPagination } from "@/components/products/listing-pagination";
 import ProductGrid from "@/components/products/product-grid";
-import StatusMessage from "@/components/status-message";
+import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 import Wrapper from "@/components/wrapper";
 import { SITE_URL } from "@/constants/links";
+import { PRODUCTS_PER_PAGE } from "@/constants/cache-tags";
 import {
   getCategoryBySlug,
-  getProductsByCategoryPaginated,
+  getFilteredProductsByCategory,
   getSitemapCategories,
-  PRODUCTS_PER_PAGE,
 } from "@/lib/api";
-import { TriangleAlert } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -64,58 +63,60 @@ export async function generateMetadata({
   }
 }
 
+async function CategoryProducts({
+  slug,
+  currentPage,
+}: {
+  slug: string;
+  currentPage: number;
+}) {
+  const offset = (currentPage - 1) * PRODUCTS_PER_PAGE;
+  const products = await getFilteredProductsByCategory(
+    slug,
+    offset,
+    PRODUCTS_PER_PAGE,
+  );
+
+  const totalPages = Math.ceil(products.totalRecords / PRODUCTS_PER_PAGE);
+  if (totalPages > 0 && currentPage > totalPages) {
+    redirect(`/proizvodi/kategorije/${slug}`);
+  }
+
+  return (
+    <>
+      <ProductGrid
+        products={products.data}
+        totalRecords={products.totalRecords}
+      />
+      <Suspense>
+        <ListingPagination
+          currentPage={currentPage}
+          totalRecords={products.totalRecords}
+          pageSize={PRODUCTS_PER_PAGE}
+        />
+      </Suspense>
+    </>
+  );
+}
+
 const CategoryPage = async ({ params, searchParams }: Props) => {
   const { slug } = await params;
   const { strana } = await searchParams;
   const currentPage = Math.max(1, parseInt(strana ?? "1", 10) || 1);
-  const offset = (currentPage - 1) * PRODUCTS_PER_PAGE;
 
-  const [categoryResult, productsResult] = await Promise.allSettled([
-    getCategoryBySlug(slug),
-    getProductsByCategoryPaginated(slug, offset, PRODUCTS_PER_PAGE),
-  ]);
-
-  if (categoryResult.status === "rejected" || !categoryResult.value) notFound();
-
-  const category = categoryResult.value;
-  const productsFailed = productsResult.status === "rejected";
-  const productsData =
-    productsResult.status === "fulfilled" ? productsResult.value : null;
-
-  if (productsData) {
-    const totalPages = Math.ceil(productsData.totalRecords / PRODUCTS_PER_PAGE);
-    if (totalPages > 0 && currentPage > totalPages) {
-      redirect(`/proizvodi/kategorije/${slug}`);
-    }
-  }
+  const category = await getCategoryBySlug(slug);
+  if (!category) notFound();
 
   return (
     <div>
       <HeroHeader title={category.name} description={category.description} />
 
       <Wrapper className="pb-16">
-        {productsFailed ? (
-          <StatusMessage
-            icon={TriangleAlert}
-            title="Nije moguće učitati proizvode."
-            description="Došlo je do greške prilikom povezivanja sa serverom. Probaj ponovo malo kasnije."
-            variant="destructive"
-          />
-        ) : (
-          <>
-            <ProductGrid
-              products={productsData?.data ?? []}
-              totalRecords={productsData?.totalRecords}
-            />
-            <Suspense>
-              <ListingPagination
-                currentPage={currentPage}
-                totalRecords={productsData?.totalRecords ?? 0}
-                pageSize={PRODUCTS_PER_PAGE}
-              />
-            </Suspense>
-          </>
-        )}
+        <SectionErrorBoundary>
+          <Suspense>
+            <CategoryProducts slug={slug} currentPage={currentPage} />
+          </Suspense>
+        </SectionErrorBoundary>
       </Wrapper>
 
       <CTA />

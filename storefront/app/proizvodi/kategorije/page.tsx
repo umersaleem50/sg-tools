@@ -4,8 +4,7 @@ import CategoryCard from "@/components/products/category-card";
 import StatusMessage from "@/components/status-message";
 import Wrapper from "@/components/wrapper";
 import { getCategories } from "@/lib/api";
-import type { Category } from "@/types/categories";
-import { Package, TriangleAlert } from "lucide-react";
+import { Package } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,15 +17,7 @@ export const metadata: Metadata = {
 };
 
 const CategoriesPage = async () => {
-  let categories: Category[] = [];
-  let fetchFailed = false;
-
-  try {
-    categories = await getCategories();
-  } catch (error) {
-    console.error("Failed to fetch categories:", error);
-    fetchFailed = true;
-  }
+  const categories = await getCategories();
 
   return (
     <div>
@@ -36,14 +27,7 @@ const CategoriesPage = async () => {
       />
 
       <Wrapper className="pb-16">
-        {fetchFailed ? (
-          <StatusMessage
-            icon={TriangleAlert}
-            title="Nije moguće učitati kategorije."
-            description="Došlo je do greške prilikom povezivanja sa serverom. Probaj ponovo malo kasnije."
-            variant="destructive"
-          />
-        ) : categories.length === 0 ? (
+        {categories.length === 0 ? (
           <StatusMessage
             icon={Package}
             title="Trenutno nema dostupnih kategorija."

@@ -1,20 +1,19 @@
-import { getAllProducts } from "@/lib/api";
-import type { Product } from "@/types/products";
+import { getFilteredProducts } from "@/lib/api";
 import Container from "./container";
 import ProductCard from "./products/product-card";
 import Section from "./section";
 import Wrapper from "./wrapper";
 
 const FeaturedProducts = async () => {
-  let products: Product[] = [];
+  let products;
   try {
-    products = await getAllProducts(0, 4);
+    products = await getFilteredProducts(0, 4);
   } catch (error) {
     console.error("Error fetching products", error);
     return null;
   }
 
-  if (!products || products.length === 0) return null;
+  if (!products || products.data.length === 0) return null;
 
   return (
     <Section>
@@ -31,7 +30,7 @@ const FeaturedProducts = async () => {
         </Container>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 mt-10">
-          {products.map((product, index) => (
+          {products.data.map((product, index) => (
             <ProductCard key={product.slug} product={product} index={index} />
           ))}
         </div>
