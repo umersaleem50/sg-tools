@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { MapPin, Phone, Mail, ExternalLink, Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Dealer, DealerCategory } from "@/types/dealers";
+import { ExternalLink, Mail, MapPin, Navigation, Phone } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 interface DealerListProps {
   dealers: Dealer[];
@@ -49,10 +49,7 @@ export default function DealerList({
   const cardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   useEffect(() => {
-    if (
-      selectedDealerId &&
-      window.matchMedia("(min-width: 1024px)").matches
-    ) {
+    if (selectedDealerId && window.matchMedia("(min-width: 1024px)").matches) {
       const card = cardRefs.current.get(selectedDealerId);
       if (card) {
         card.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -157,9 +154,7 @@ export default function DealerList({
                   onClick={(e) => e.stopPropagation()}
                   className="hover:text-foreground transition-colors truncate"
                 >
-                  {dealer.website
-                    .replace(/^https?:\/\/(www\.)?/, "")
-                    .replace(/\/$/, "")}
+                  {dealer.website}
                 </a>
               </div>
             )}

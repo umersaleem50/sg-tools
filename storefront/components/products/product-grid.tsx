@@ -1,3 +1,4 @@
+import StatusMessage from "@/components/status-message";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/types/products";
 import { ArrowLeft, Package } from "lucide-react";
@@ -6,45 +7,47 @@ import ProductCard from "./product-card";
 
 interface ProductGridProps {
   products: Product[];
+  totalRecords?: number;
+  backLink?: { href: string; label: string };
 }
 
-const ProductGrid = ({ products: productList }: ProductGridProps) => {
+const ProductGrid = ({
+  products: productList,
+  totalRecords,
+  backLink = { href: "/proizvodi/kategorije", label: "Sve kategorije" },
+}: ProductGridProps) => {
+  const displayCount = totalRecords ?? productList.length;
   const productsFoundText =
-    productList.length === 0
+    displayCount === 0
       ? "Nema proizvoda"
-      : productList.length === 1
+      : displayCount === 1
         ? "1 proizvod"
-        : `${productList.length} proizvoda`;
+        : `${displayCount} proizvoda`;
 
   return (
     <div className="w-full">
       {productList.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="flex items-center justify-center size-12 rounded-xl bg-primary/15 border border-primary/30 mb-4">
-            <Package className="size-6 text-primary" strokeWidth={1.5} />
-          </div>
-          <p className="text-lg font-medium">
-            Još nema proizvoda u ovoj kategoriji.
-          </p>
-          <p className="text-sm text-muted-foreground mt-2 max-w-sm">
-            Proveri ponovo uskoro ili pogledaj druge kategorije.
-          </p>
-          <Link href="/proizvodi/kategorije" className="mt-6">
+        <StatusMessage
+          icon={Package}
+          title="Još nema proizvoda u ovoj kategoriji."
+          description="Proveri ponovo uskoro ili pogledaj druge kategorije."
+        >
+          <Link href={backLink.href} className="mt-6">
             <Button variant="outline" size="sm">
               <ArrowLeft className="size-4" />
-              Sve kategorije
+              {backLink.label}
             </Button>
           </Link>
-        </div>
+        </StatusMessage>
       ) : (
         <>
           <div className="flex items-center justify-between mb-6">
             <Link
-              href="/proizvodi/kategorije"
+              href={backLink.href}
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="size-4" />
-              Sve kategorije
+              {backLink.label}
             </Link>
             <span className="text-sm text-muted-foreground">
               {productsFoundText}

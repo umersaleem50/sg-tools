@@ -1,20 +1,16 @@
 import Container from "@/components/container";
 import Wrapper from "@/components/wrapper";
+import { SITE_URL } from "@/constants/links";
 import type { Product } from "@/types/products";
 import { ChevronRight, ExternalLink, Package } from "lucide-react";
 import Link from "next/link";
-import ProductCard from "./product-card";
 import ProductGallery from "./product-gallery";
 
 interface ProductDetailProps {
   product: Product;
-  relatedProducts: Product[];
 }
 
-const ProductDetail = ({
-  product,
-  relatedProducts,
-}: ProductDetailProps) => {
+const ProductDetail = ({ product }: ProductDetailProps) => {
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -44,7 +40,7 @@ const ProductDetail = ({
         "@type": "ListItem",
         position: 1,
         name: "Svi proizvodi",
-        item: "https://sgtools.rs/proizvodi/kategorije",
+        item: `${SITE_URL}/proizvodi/kategorije`,
       },
       ...(product.categorySlug
         ? [
@@ -52,7 +48,7 @@ const ProductDetail = ({
               "@type": "ListItem",
               position: 2,
               name: product.categoryName,
-              item: `https://sgtools.rs/proizvodi/kategorije/${product.categorySlug}`,
+              item: `${SITE_URL}/proizvodi/kategorije/${product.categorySlug}`,
             },
           ]
         : []),
@@ -205,17 +201,6 @@ const ProductDetail = ({
         </Container>
       )}
 
-      {/* Related products */}
-      {relatedProducts.length > 0 && (
-        <Container delay={3} className="mt-12 lg:mt-16">
-          <h2 className="text-xl font-bold mb-6">Slični proizvodi</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
-            {relatedProducts.map((related, index) => (
-              <ProductCard key={related.id} product={related} index={index} />
-            ))}
-          </div>
-        </Container>
-      )}
     </Wrapper>
   );
 };

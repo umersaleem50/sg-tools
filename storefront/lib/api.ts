@@ -1,6 +1,8 @@
 import type { Category } from "@/types/categories";
 import type { Product, ProductsResult, SitemapEntry } from "@/types/products";
 
+export const PRODUCTS_PER_PAGE = 12;
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -35,7 +37,21 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-export async function getProducts(offset = 0, limit = 20): Promise<Product[]> {
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  try {
+    return await apiFetch<Product>(
+      `/api/Storefront/ProductBySlug?slug=${encodeURIComponent(slug)}`,
+    );
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
+}
+
+export async function getAllProducts(
+  offset: number | null = 0,
+  limit: number | null = 1000,
+): Promise<Product[]> {
   const result = await apiFetch<ProductsResult>(
     "/api/Storefront/FilteredProducts",
     {
@@ -51,21 +67,10 @@ export async function getProducts(offset = 0, limit = 20): Promise<Product[]> {
   return result.data;
 }
 
-export async function getProductBySlug(slug: string): Promise<Product | null> {
-  try {
-    return await apiFetch<Product>(
-      `/api/Storefront/ProductBySlug?slug=${encodeURIComponent(slug)}`,
-    );
-  } catch (error) {
-    if (error instanceof ApiError && error.status === 404) return null;
-    throw error;
-  }
-}
-
 export async function getProductsByCategory(
-  categorySlug: string,
-  offset = 0,
-  limit = 20,
+  categorySlug: string | null,
+  offset: number | null = 0,
+  limit: number | null = 20,
 ): Promise<Product[]> {
   const result = await apiFetch<ProductsResult>(
     "/api/Storefront/FilteredProducts",
@@ -83,14 +88,65 @@ export async function getProductsByCategory(
   return result.data;
 }
 
+export async function getAllProductsPaginated(
+  offset: number,
+  limit: number,
+): Promise<ProductsResult> {
+  return apiFetch<ProductsResult>("/api/Storefront/FilteredProducts", {
+    method: "POST",
+    body: JSON.stringify({
+      brandSlugs: [BRAND_SLUG],
+      tagSlugs: [],
+      first: offset,
+      rows: limit,
+    }),
+  });
+}
+
+export async function getProductsByCategoryPaginated(
+  categorySlug: string,
+  offset: number,
+  limit: number,
+): Promise<ProductsResult> {
+  return apiFetch<ProductsResult>("/api/Storefront/FilteredProducts", {
+    method: "POST",
+    body: JSON.stringify({
+      brandSlugs: [BRAND_SLUG],
+      tagSlugs: [],
+      categorySlug,
+      first: offset,
+      rows: limit,
+    }),
+  });
+}
+
 export async function getCategories(): Promise<Category[]> {
   return apiFetch<Category[]>(
     `/api/Storefront/Categories?brandSlug=${BRAND_SLUG}`,
   );
 }
 
+export async function getCategoryBySlug(
+  slug: string,
+): Promise<Category | null> {
+  try {
+    return await apiFetch<Category>(
+      `/api/Storefront/CategoryBySlug?slug=${encodeURIComponent(slug)}`,
+    );
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
+}
+
 export async function getSitemapProducts(): Promise<SitemapEntry[]> {
   return apiFetch<SitemapEntry[]>(
     `/api/Storefront/SitemapProductsByBrand?brandSlug=${BRAND_SLUG}`,
+  );
+}
+
+export async function getSitemapCategories(): Promise<SitemapEntry[]> {
+  return apiFetch<SitemapEntry[]>(
+    `/api/Storefront/SitemapCategoriesByBrand?brandSlug=${BRAND_SLUG}`,
   );
 }

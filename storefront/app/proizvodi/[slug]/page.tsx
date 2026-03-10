@@ -1,34 +1,24 @@
 import CTA from "@/components/cta";
 import ProductDetail from "@/components/products/product-detail";
-import {
-  getProductBySlug,
-  getProducts,
-  getProductsByCategory,
-} from "@/lib/api";
-import type { Product } from "@/types/products";
+import RelatedProducts from "@/components/products/related-products";
+import { getProductBySlug, getSitemapProducts } from "@/lib/api";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   try {
-    const allProducts = await getProducts(0, 1000);
-    return allProducts.map((p) => ({ slug: p.slug }));
+    const products = await getSitemapProducts();
+    return products.map((p) => ({ slug: p.slug }));
   } catch {
     return [];
   }
-}
-
-function truncate(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  const truncated = text.slice(0, maxLength - 1);
-  const lastSpace = truncated.lastIndexOf(" ");
-  return `${truncated.slice(0, lastSpace > 0 ? lastSpace : maxLength - 1)}…`;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -40,20 +30,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       return {};
     }
 
-    const description = truncate(
-      product.metaDescription || product.description || "",
-      155,
-    );
-
     return {
-      title: product.metaTitle || product.title,
-      description,
+      title: product.metaTitle,
+      description: product.metaDescription,
       alternates: {
         canonical: `https://prodavnicaalata.rs/proizvodi/${slug}/`,
       },
       openGraph: {
-        title: product.metaTitle || product.title,
-        description,
+        title: product.metaTitle,
+        description: product.metaDescription,
       },
     };
   } catch (error) {
@@ -68,21 +53,17 @@ const ProductPage = async ({ params }: Props) => {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  let relatedProducts: Product[] = [];
-  try {
-    relatedProducts = product.categorySlug
-      ? await getProductsByCategory(product.categorySlug)
-      : [];
-  } catch {
-    relatedProducts = [];
-  }
-  relatedProducts = relatedProducts
-    .filter((p) => p.id !== product.id)
-    .slice(0, 4);
-
   return (
     <div>
-      <ProductDetail product={product} relatedProducts={relatedProducts} />
+      <ProductDetail product={product} />
+      {product.categorySlug && (
+        <Suspense fallback={null}>
+          <RelatedProducts
+            categorySlug={product.categorySlug}
+            excludeProductId={product.id}
+          />
+        </Suspense>
+      )}
       <CTA />
     </div>
   );
