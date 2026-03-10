@@ -14,7 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **This project**: SG Tools brand website (sgtools.rs) — a marketing and product showcase site built with Next.js 16 (App Router) (https://nextjs.org/docs), TypeScript, and Tailwind CSS v4. Deployed on Vercel.
 
-**Purpose**: Display SG Tools products (fetched server-side from the main platform's REST API) with buy links pointing to prodavnicaalata.rs. This site is display-only — no cart or checkout.
+**Purpose**: Display SG Tools products (~320 products, fetched server-side from the main platform's REST API) with buy links pointing to prodavnicaalata.rs. This site is display-only — no cart or checkout.
 
 **Brand voice**: Friendly and approachable. Serbian copy uses informal "ti" form (not "Vi") — keep it casual and direct.
 
