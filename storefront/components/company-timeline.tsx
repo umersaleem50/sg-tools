@@ -12,7 +12,7 @@ import { Feature } from "./feature";
 
 const items = [
   {
-    date: "Mar 15, 2024",
+    date: "2019 - Present",
     description:
       "Initial team meeting and project scope definition. Established key milestones and resource allocation.",
     id: 1,
@@ -23,7 +23,7 @@ const items = [
     border: "border-amber-500/30",
   },
   {
-    date: "Mar 22, 2024",
+    date: "2012 - 2019",
     description:
       "Completed wireframes and user interface mockups. Stakeholder review and feedback incorporated.",
     id: 2,
@@ -38,7 +38,7 @@ const items = [
     color: "text-emerald-400",
     bg: "bg-emerald-500/15",
     border: "border-emerald-500/30",
-    date: "Apr 5, 2024",
+    date: "1994 - 2012",
     description:
       "Backend API implementation and frontend component development in progress.",
     id: 3,

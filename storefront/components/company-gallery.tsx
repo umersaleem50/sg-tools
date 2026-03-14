@@ -14,8 +14,8 @@ function CompanyGallery() {
 
       <div className="relative col-start-1 row-start-4 row-span-3">
         <Image
-          src="/categories/diamond.jpg"
-          alt="Diamond"
+          src="/categories/electric.jpg"
+          alt="electric"
           fill
           className="object-cover rounded-xl"
         />
@@ -24,8 +24,8 @@ function CompanyGallery() {
       {/* Column 2 */}
       <div className="relative col-start-2 row-span-2">
         <Image
-          src="/categories/diamond.jpg"
-          alt="Diamond"
+          src="/categories/grinder.jpg"
+          alt="grinder"
           fill
           className="object-cover rounded-xl"
         />
@@ -33,8 +33,8 @@ function CompanyGallery() {
 
       <div className="relative col-start-2 row-span-2">
         <Image
-          src="/categories/diamond.jpg"
-          alt="Diamond"
+          src="/categories/hand-tools.jpg"
+          alt="hand-tools"
           fill
           className="object-cover rounded-xl"
         />

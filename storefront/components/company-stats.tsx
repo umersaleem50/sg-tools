@@ -14,6 +14,7 @@ function CompanyStats() {
     { value: buyers, label: "Veleprodajnih kupaca" },
     { value: `${dealers}+`, label: "Dilera širom Srbije" },
     { value: `${satisfaction}%`, label: "Zadovoljstvo uslugom" },
+    { value: `${satisfaction}%`, label: "Zadovoljstvo uslugom" },
   ];
   return (
     <div ref={ref}>
