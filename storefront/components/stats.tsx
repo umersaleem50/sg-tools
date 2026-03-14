@@ -1,14 +1,17 @@
-import { STATS } from "@/constants/content";
 import Container from "./container";
 import Section from "./section";
 import Wrapper from "./wrapper";
 
-const Stats = () => {
+export interface StatsProps {
+  stats: Array<{ label: string; value: string | number }>;
+}
+
+const Stats = ({ stats }: StatsProps) => {
   return (
     <Section>
       <Wrapper>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-8 w-full">
-          {STATS.map((stat, index) => (
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] sm:gap-8 w-full">
+          {stats.map((stat, index) => (
             <Container key={index} delay={index}>
               <div className="flex flex-col items-center justify-center text-center">
                 <h4 className="text-4xl lg:text-5xl font-bold font-heading">

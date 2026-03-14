@@ -6,6 +6,7 @@ import Features from "@/components/features";
 import Hero from "@/components/hero";
 import Stats from "@/components/stats";
 import Testimonials from "@/components/testimonials";
+import { STATS } from "@/constants/content";
 import { Suspense } from "react";
 
 const HomePage = () => {
@@ -20,7 +21,7 @@ const HomePage = () => {
         <Categories />
       </Suspense>
       <Features />
-      <Stats />
+      <Stats stats={STATS} />
       <Testimonials />
       <CTA />
     </div>

@@ -1,5 +1,6 @@
 import AboutContent from "@/components/about-content";
 import AboutStory from "@/components/about-story";
+import CompanyStats from "@/components/company-stats";
 import CompanyValues from "@/components/company-values";
 import CTA from "@/components/cta";
 import HeroHeader from "@/components/hero-header";
@@ -22,6 +23,7 @@ const AboutPage = () => {
         description="Upoznaj brend koji je nastao iz iskustva, znanja i potreba onih koji alat koriste svaki dan."
       />
       <CompanyValues />
+      <CompanyStats />
       <AboutStory />
       <AboutContent />
       <CTA />
