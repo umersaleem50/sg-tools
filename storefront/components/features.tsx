@@ -1,12 +1,7 @@
-import {
-  BadgePercent,
-  History,
-  ShieldCheck,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
 import { FEATURES } from "@/constants/content";
+import { BadgePercent, History, ShieldCheck, Users } from "lucide-react";
 import Container from "./container";
+import { Feature } from "./feature";
 import Section from "./section";
 import Wrapper from "./wrapper";
 
@@ -66,36 +61,6 @@ const Features = () => {
         </Container>
       </Wrapper>
     </Section>
-  );
-};
-
-const Feature = ({
-  title,
-  desc,
-  icon: Icon,
-  color,
-  bg,
-  border,
-}: {
-  title: string;
-  desc: string;
-  icon: LucideIcon;
-  color: string;
-  bg: string;
-  border: string;
-}) => {
-  return (
-    <div className="flex flex-col justify-between p-3 lg:p-6 border border-border/60 rounded-lg lg:rounded-xl">
-      <div
-        className={`flex items-center justify-center size-9 lg:size-11 rounded-xl ${bg} ${border} border`}
-      >
-        <Icon className={`size-5 lg:size-6 ${color}`} strokeWidth={1.5} />
-      </div>
-      <div>
-        <h3 className="text-base sm:text-lg font-semibold mt-4">{title}</h3>
-        <p className="text-xs sm:text-sm text-muted-foreground mt-1">{desc}</p>
-      </div>
-    </div>
   );
 };
 
