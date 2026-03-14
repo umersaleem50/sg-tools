@@ -1,5 +1,5 @@
-// import AboutContent from "@/components/about-content";
-// import AboutStory from "@/components/about-story";
+import AboutContent from "@/components/about-content";
+import AboutStory from "@/components/about-story";
 import CompanyBenefits from "@/components/company-benefits";
 import CompanyStats from "@/components/company-stats";
 import CompanyValues from "@/components/company-values";
@@ -26,7 +26,8 @@ const AboutPage = () => {
       <CompanyStats />
       <CompanyValues />
       <CompanyBenefits />
-
+      <AboutContent />
+      <AboutStory />
       <CTA />
     </div>
   );

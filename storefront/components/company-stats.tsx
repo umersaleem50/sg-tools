@@ -6,15 +6,30 @@ import Stats from "./stats";
 function CompanyStats() {
   const ref = useRef(null);
 
-  const buyers = useCounter(ref, 1000, 2);
-  const dealers = useCounter(ref, 120, 4);
-  const satisfaction = useCounter(ref, 100, 5);
+  const experience = useCounter(ref, 30, 2);
+  const years = useCounter(ref, 7, 2.5);
+  const satisfaction = useCounter(ref, 100, 2.5);
+  const professionals = useCounter(ref, 1000, 3);
 
   const stats = [
-    { value: buyers, label: "Veleprodajnih kupaca" },
-    { value: `${dealers}+`, label: "Dilera širom Srbije" },
-    { value: `${satisfaction}%`, label: "Zadovoljstvo uslugom" },
-    { value: `${satisfaction}%`, label: "Zadovoljstvo uslugom" },
+    {
+      value: `${experience}+`,
+
+      label: "Godina iskustva u alatima",
+    },
+    {
+      value: `${years}+`,
+
+      label: "Godina razvoja brenda SG Tools",
+    },
+    {
+      value: `${satisfaction}%`,
+      label: "Fokus na kvalitet i funkcionalnost",
+    },
+    {
+      value: `${professionals}+`,
+      label: "Zadovoljnih profesionalnih korisnika",
+    },
   ];
   return (
     <div ref={ref}>

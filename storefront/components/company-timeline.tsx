@@ -7,17 +7,44 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from "@/components/ui/timeline";
-import { History, Speech, Users } from "lucide-react";
+import { Rocket, Speech, Wrench } from "lucide-react";
 import { Feature } from "./feature";
+
+const timeline = [
+  {
+    year: "Pre 30+ godina",
+    title: "Početak u svetu alata",
+    description:
+      "Naša porodična priča počinje pre više od tri decenije ulaskom u industriju alata. Kroz svakodnevni rad sa profesionalcima i hobistima sticali smo iskustvo i razumevanje tržišta.",
+  },
+  {
+    year: "Godine rada sa kupcima",
+    title: "Slušanje potreba korisnika",
+    description:
+      "Radom sa majstorima, instalaterima i serviserima svakodnevno smo slušali njihove sugestije. Njihova iskustva i komentari postali su ključne smernice za razvoj budućih proizvoda.",
+  },
+  {
+    year: "Pre 7 godina",
+    title: "Nastanak brenda SG Tools",
+    description:
+      "Znanje i iskustvo koje smo godinama gradili pretvorili smo u sopstveni brend. Tako je nastao SG Tools — alat razvijen sa jasnim ciljem da ponudi profesionalni kvalitet po pristupačnoj ceni.",
+  },
+  {
+    year: "Danas",
+    title: "Širenje asortimana",
+    description:
+      "Danas nastavljamo da razvijamo nove proizvode i širimo asortiman, ostajući verni istoj filozofiji — kvalitet, pouzdanost i praktična rešenja za svakodnevni rad.",
+  },
+];
 
 const items = [
   {
     date: "2019 - Present",
     description:
-      "Initial team meeting and project scope definition. Established key milestones and resource allocation.",
+      "Naša porodična priča počinje pre više od tri decenije ulaskom u industriju alata. Kroz svakodnevni rad sa profesionalcima i hobistima sticali smo iskustvo i razumevanje tržišta.",
     id: 1,
-    title: "Project Kickoff",
-    icon: History,
+    title: "Početak u svetu alata",
+    icon: Wrench,
     color: "text-amber-400",
     bg: "bg-amber-500/15",
     border: "border-amber-500/30",
@@ -25,24 +52,24 @@ const items = [
   {
     date: "2012 - 2019",
     description:
-      "Completed wireframes and user interface mockups. Stakeholder review and feedback incorporated.",
+      "Radom sa majstorima, instalaterima i serviserima svakodnevno smo slušali njihove sugestije. Njihova iskustva i komentari postali su ključne smernice za razvoj budućih proizvoda.",
     id: 2,
-    title: "Design Phase",
-    icon: Users,
+    title: "Slušanje potreba korisnika",
+    icon: Speech,
     color: "text-blue-400",
     bg: "bg-blue-500/15",
     border: "border-blue-500/30",
   },
   {
-    icon: Speech,
+    icon: Rocket,
     color: "text-emerald-400",
     bg: "bg-emerald-500/15",
     border: "border-emerald-500/30",
     date: "1994 - 2012",
     description:
-      "Backend API implementation and frontend component development in progress.",
+      "Znanje i iskustvo koje smo godinama gradili pretvorili smo u sopstveni brend. Tako je nastao SG Tools — alat razvijen sa jasnim ciljem da ponudi profesionalni kvalitet po pristupačnoj ceni.",
     id: 3,
-    title: "Development Sprint",
+    title: "Nastanak brenda SG Tools",
   },
 ];
 
