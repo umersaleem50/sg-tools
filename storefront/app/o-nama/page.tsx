@@ -1,5 +1,6 @@
 import AboutContent from "@/components/about-content";
 import AboutStory from "@/components/about-story";
+import CompanyValues from "@/components/company-values";
 import CTA from "@/components/cta";
 import HeroHeader from "@/components/hero-header";
 import type { Metadata } from "next";
@@ -20,6 +21,7 @@ const AboutPage = () => {
         title="O nama"
         description="Upoznaj brend koji je nastao iz iskustva, znanja i potreba onih koji alat koriste svaki dan."
       />
+      <CompanyValues />
       <AboutStory />
       <AboutContent />
       <CTA />
