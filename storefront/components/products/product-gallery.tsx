@@ -1,21 +1,27 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import type { ProductImage } from "@/types/products";
 import Image from "next/image";
 import { useState } from "react";
 
 interface ProductGalleryProps {
-  posterUrl: string;
-  imageUrls: string[];
+  images: ProductImage[];
+  fallbackUrl?: string;
   title: string;
 }
 
 const ProductGallery = ({
-  posterUrl,
-  imageUrls,
+  images,
+  fallbackUrl,
   title,
 }: ProductGalleryProps) => {
-  const allImages = [posterUrl, ...imageUrls].filter(Boolean);
+  const allImages: ProductImage[] =
+    images.length > 0
+      ? images
+      : fallbackUrl
+        ? [{ url: fallbackUrl, width: 800, height: 800 }]
+        : [];
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   if (allImages.length === 0) {
@@ -30,18 +36,18 @@ const ProductGallery = ({
     <div className="flex flex-col gap-3">
       <div className="relative aspect-square w-full rounded-lg bg-foreground/5 overflow-hidden border border-border/20">
         <Image
-          src={allImages[selectedIndex]}
+          src={allImages[selectedIndex].url}
           alt={title}
           fill
           className="object-contain p-4"
           sizes="(max-width: 768px) 100vw, 50vw"
-          priority
+          priority={selectedIndex === 0}
         />
       </div>
 
       {allImages.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-1">
-          {allImages.map((url, index) => (
+          {allImages.map((image, index) => (
             <button
               key={index}
               onClick={() => setSelectedIndex(index)}
@@ -53,7 +59,7 @@ const ProductGallery = ({
               )}
             >
               <Image
-                src={url}
+                src={image.url}
                 alt={`${title} ${index + 1}`}
                 fill
                 className="object-contain p-1"

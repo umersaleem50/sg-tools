@@ -1,3 +1,9 @@
+export interface ProductImage {
+  url: string;
+  width: number;
+  height: number;
+}
+
 export interface Product {
   id: number;
   defaultProductVariantId: number;
@@ -16,11 +22,12 @@ export interface Product {
   imageUrl: string;
   brandName: string;
   brandSlug: string;
+  brandImageUrl: string;
   inStock: boolean;
   tags: { name: string; color: string; orderNumber: number }[];
   categoryName: string;
   categorySlug: string;
-  productImageUrls: string[];
+  productImages: ProductImage[];
   averageRating: number | null;
   reviewCount: number;
   maxOrderQuantity: number | null;

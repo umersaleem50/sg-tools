@@ -3,8 +3,10 @@ import Wrapper from "@/components/wrapper";
 import { SITE_URL } from "@/constants/links";
 import type { Product } from "@/types/products";
 import { ChevronRight, ExternalLink, Package } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import ProductGallery from "./product-gallery";
+import ProductTabs from "./product-tabs";
 
 interface ProductDetailProps {
   product: Product;
@@ -100,8 +102,8 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
         {/* Left: Gallery */}
         <Container>
           <ProductGallery
-            posterUrl={product.imageUrl}
-            imageUrls={product.productImageUrls}
+            images={product.productImages}
+            fallbackUrl={product.imageUrl}
             title={product.title}
           />
         </Container>
@@ -109,18 +111,28 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
         {/* Right: Product info */}
         <Container delay={1}>
           <div className="flex flex-col">
-            {product.brandName && (
+            {product.brandImageUrl ? (
+              <div className="relative h-8 w-24">
+                <Image
+                  src={product.brandImageUrl}
+                  alt={product.brandName}
+                  fill
+                  sizes="96px"
+                  className="object-contain object-left"
+                />
+              </div>
+            ) : product.brandName ? (
               <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 {product.brandName}
               </span>
-            )}
+            ) : null}
 
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
               {product.title}
             </h1>
 
             {product.description && (
-              <p
+              <div
                 className="text-muted-foreground mt-3 leading-relaxed whitespace-pre-line"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
@@ -190,13 +202,12 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
         </Container>
       </div>
 
-      {/* Product details / HTML content */}
-      {product.htmlDescription && (
+      {/* Product details / specification */}
+      {(product.htmlDescription || product.specification) && (
         <Container delay={2} className="mt-12 lg:mt-16">
-          <h2 className="text-xl font-bold mb-6">Detalji</h2>
-          <div
-            className="prose prose-sm prose-invert max-w-none prose-a:text-primary prose-a:hover:opacity-80"
-            dangerouslySetInnerHTML={{ __html: product.htmlDescription }}
+          <ProductTabs
+            htmlDescription={product.htmlDescription}
+            specification={product.specification}
           />
         </Container>
       )}
