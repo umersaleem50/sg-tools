@@ -4,47 +4,12 @@ import NavbarWithCategories from "@/components/navbar-with-categories";
 import { Toaster } from "@/components/ui/sonner";
 import { base, heading } from "@/constants/fonts";
 import { SITE_URL } from "@/constants/links";
+import { createRootMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
 import { Suspense, type ReactNode } from "react";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "SG Tools — Profesionalni alati sa 30 godina iskustva",
-    template: "%s | SG Tools",
-  },
-  description:
-    "Električni alati, ručni alati, brusilice i dijamantski alati nastali iz decenija praktičnog znanja. Profesionalni kvalitet po cenama koje imaju smisla.",
-  openGraph: {
-    siteName: "SG Tools",
-    locale: "sr_RS",
-    type: "website",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "SG Tools",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-  },
-  alternates: {
-    canonical: "/",
-  },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
-    apple: "/apple-touch-icon.png",
-  },
-  manifest: "/site.webmanifest",
-};
+export const metadata = createRootMetadata();
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

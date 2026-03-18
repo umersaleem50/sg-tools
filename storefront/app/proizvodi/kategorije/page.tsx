@@ -4,16 +4,14 @@ import StatusMessage from "@/components/status-message";
 import Wrapper from "@/components/wrapper";
 import { getCategories } from "@/lib/api";
 import { Package } from "lucide-react";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Kategorije proizvoda",
   description:
     "Pregledaj kompletnu ponudu profesionalnog alata po kategorijama.",
-  alternates: {
-    canonical: "https://prodavnicaalata.rs/proizvodi/kategorije/",
-  },
-};
+  canonicalUrl: "https://www.prodavnicaalata.rs/proizvodi/kategorije/",
+});
 
 const CategoriesPage = async () => {
   const categories = await getCategories();

@@ -3,16 +3,14 @@ import CompanyStats from "@/components/company-stats";
 import CompanyValues from "@/components/company-values";
 import CTA from "@/components/cta";
 import HeroHeader from "@/components/hero-header";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "O nama",
   description:
     "Upoznaj SG Tools — brend nastao iz 30 godina iskustva u svetu alata. Profesionalni kvalitet oblikovan stvarnim potrebama majstora.",
-  alternates: {
-    canonical: "/o-nama",
-  },
-};
+  canonicalUrl: "/o-nama",
+});
 
 const AboutPage = () => {
   return (

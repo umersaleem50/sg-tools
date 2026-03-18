@@ -2,16 +2,14 @@ import CTA from "@/components/cta";
 import Faq from "@/components/faq";
 import HeroHeader from "@/components/hero-header";
 import { FAQ_ITEMS } from "@/constants/content";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Česta pitanja",
   description:
     "Odgovori na najčešća pitanja o SG Tools proizvodima — dostava, garancija, povrat, radno vreme i više.",
-  alternates: {
-    canonical: "/cesta-pitanja",
-  },
-};
+  canonicalUrl: "/cesta-pitanja",
+});
 
 const faqJsonLd = {
   "@context": "https://schema.org",

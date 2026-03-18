@@ -3,8 +3,8 @@ import { ListingPagination } from "@/components/products/listing-pagination";
 import ProductGrid from "@/components/products/product-grid";
 import Wrapper from "@/components/wrapper";
 import { PRODUCTS_PER_PAGE } from "@/constants/cache-tags";
-import { SITE_URL } from "@/constants/links";
 import { getFilteredProducts } from "@/lib/api";
+import { createProductsPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -18,19 +18,7 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const { strana } = await searchParams;
   const currentPage = Math.max(1, parseInt(strana ?? "1", 10) || 1);
-  const pageSuffix = currentPage > 1 ? ` - Strana ${currentPage}` : "";
-
-  return {
-    title: `Svi proizvodi${pageSuffix}`,
-    description:
-      "Pregledaj kompletnu ponudu SG Tools profesionalnog alata — bušilice, brusilice, testere i još mnogo toga.",
-    alternates: {
-      canonical:
-        currentPage > 1
-          ? `${SITE_URL}/proizvodi?strana=${currentPage}`
-          : `${SITE_URL}/proizvodi`,
-    },
-  };
+  return createProductsPageMetadata({ currentPage });
 }
 
 async function ProductsList({

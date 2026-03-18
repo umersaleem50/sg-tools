@@ -2,17 +2,15 @@ import Container from "@/components/container";
 import HeroHeader from "@/components/hero-header";
 import Section from "@/components/section";
 import Wrapper from "@/components/wrapper";
+import { createPageMetadata } from "@/lib/metadata";
 import Link from "next/link";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Uslovi korišćenja",
   description:
     "Uslovi korišćenja sajta SG Tools — pravila i uslovi za korišćenje sajta sgtools.rs.",
-  alternates: {
-    canonical: "/uslovi-koriscenja",
-  },
-};
+  canonicalUrl: "/uslovi-koriscenja",
+});
 
 const TermsPage = () => {
   return (

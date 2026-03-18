@@ -2,6 +2,7 @@ import ProductDetail from "@/components/products/product-detail";
 import RelatedProducts from "@/components/products/related-products";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 import { getProductBySlug, getSitemapProducts } from "@/lib/api";
+import { createProductMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -20,20 +21,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProductBySlug(slug);
 
   if (!product) {
-    return {};
+    return { title: "Proizvod nije pronađen" };
   }
 
-  return {
+  return createProductMetadata({
     title: product.metaTitle,
     description: product.metaDescription,
-    alternates: {
-      canonical: `https://prodavnicaalata.rs/proizvodi/${slug}/`,
-    },
-    openGraph: {
-      title: product.metaTitle,
-      description: product.metaDescription,
-    },
-  };
+    slug,
+  });
 }
 
 export default async function ProductPage({ params }: Props) {

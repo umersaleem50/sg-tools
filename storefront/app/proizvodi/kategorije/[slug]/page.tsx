@@ -4,12 +4,12 @@ import ProductGrid from "@/components/products/product-grid";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 import Wrapper from "@/components/wrapper";
 import { PRODUCTS_PER_PAGE } from "@/constants/cache-tags";
-import { SITE_URL } from "@/constants/links";
 import {
   getCategoryBySlug,
   getFilteredProductsByCategory,
   getSitemapCategories,
 } from "@/lib/api";
+import { createCategoryMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -31,24 +31,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const { strana } = await searchParams;
   const currentPage = Math.max(1, parseInt(strana ?? "1", 10) || 1);
-  const pageSuffix = currentPage > 1 ? ` — Strana ${currentPage}` : "";
 
   const category = await getCategoryBySlug(slug);
-  if (!category) return {};
+  if (!category) return { title: "Kategorija nije pronađena" };
 
-  const canonicalBase = `${SITE_URL}/proizvodi/kategorije/${slug}`;
-  const canonical =
-    currentPage > 1 ? `${canonicalBase}?strana=${currentPage}` : canonicalBase;
-
-  return {
-    title: `${category.metaTitle}${pageSuffix}`,
+  return createCategoryMetadata({
+    title: category.metaTitle,
     description: category.metaDescription,
-    alternates: { canonical },
-    openGraph: {
-      title: `${category.metaTitle}${pageSuffix}`,
-      description: category.metaDescription,
-    },
-  };
+    slug,
+    currentPage,
+  });
 }
 
 async function CategoryProducts({

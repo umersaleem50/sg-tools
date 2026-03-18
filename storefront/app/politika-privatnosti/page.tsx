@@ -2,16 +2,14 @@ import Container from "@/components/container";
 import HeroHeader from "@/components/hero-header";
 import Section from "@/components/section";
 import Wrapper from "@/components/wrapper";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Politika privatnosti",
   description:
     "Politika privatnosti SG Tools — kako prikupljamo, koristimo i štitimo tvoje podatke na sajtu sgtools.rs.",
-  alternates: {
-    canonical: "/politika-privatnosti",
-  },
-};
+  canonicalUrl: "/politika-privatnosti",
+});
 
 const PrivacyPolicyPage = () => {
   return (

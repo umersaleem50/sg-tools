@@ -1,16 +1,14 @@
 import ContactForm from "@/components/contact/contact-form";
 import ContactHero from "@/components/contact/contact-hero";
 import CTA from "@/components/cta";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Kontakt",
   description:
     "Kontaktiraj SG Tools — pitanja o alatima, pomoć pri izboru proizvoda ili saradnja. Tu smo da pomognemo.",
-  alternates: {
-    canonical: "/kontakt",
-  },
-};
+  canonicalUrl: "/kontakt",
+});
 
 const ContactPage = () => {
   return (
