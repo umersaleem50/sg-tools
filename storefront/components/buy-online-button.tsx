@@ -18,7 +18,7 @@ const BuyOnlineButton = ({
         target="_blank"
         rel="noopener noreferrer"
       >
-        Kupi online
+        Idi na prodavnicu
         <ExternalLinkIcon />
       </a>
     </Button>

@@ -18,11 +18,11 @@ export const PRODUCTS_FOOTER_LINKS: readonly NavLink[] = [
   { label: "Svi proizvodi", href: "/proizvodi" },
   { label: "Kategorije", href: "/proizvodi/kategorije" },
   {
-    label: "Kupi online",
+    label: "Online prodavnica",
     href: "https://www.prodavnicaalata.rs",
     external: true,
   },
-  { label: "Preuzmi katalog", href: "#" },
+  { label: "Katalog", href: "https://stridon.milev.rs/", external: true },
 ];
 
 export const COMPANY_FOOTER_LINKS: readonly NavLink[] = [

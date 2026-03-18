@@ -1,4 +1,4 @@
-import { Download, ExternalLinkIcon } from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "./container";
@@ -25,14 +25,14 @@ const Hero = () => {
               href="https://www.prodavnicaalata.rs/proizvodjaci/sg-tools/"
               target="_blank"
             >
-              Kupi online
+              Idi na prodavnicu
               <ExternalLinkIcon className="size-4" />
             </Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link href="#">
-              Preuzmi katalog
-              <Download className="size-4" />
+            <Link href="https://stridon.milev.rs/" target="_blank">
+              Pogledaj katalog
+              <ExternalLinkIcon className="size-4" />
             </Link>
           </Button>
         </div>

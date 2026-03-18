@@ -1,4 +1,10 @@
-import { CreditCard, ExternalLink, ShieldCheck, Truck, Zap } from "lucide-react";
+import {
+  CreditCard,
+  ExternalLink,
+  ShieldCheck,
+  Truck,
+  Zap,
+} from "lucide-react";
 import Container from "./container";
 import Section from "./section";
 import { Button } from "./ui/button";
@@ -20,7 +26,7 @@ const CTA = () => {
             Pronađi pravi alat <br /> za svaki posao
           </h2>
           <a
-            href="https://prodavnicaalata.rs"
+            href="https://www.prodavnicaalata.rs/proizvodjaci/sg-tools/"
             target="_blank"
             rel="noopener noreferrer"
           >
