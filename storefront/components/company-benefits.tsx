@@ -44,8 +44,7 @@ const benefits = [
   },
   {
     title: "Iskustvo korisnika",
-    description:
-      "Razvijeno uz sugestije profesionalaca i hobista na terenu.",
+    description: "Razvijeno uz sugestije profesionalaca i hobista na terenu.",
   },
   {
     title: "Realne cene",
