@@ -37,7 +37,9 @@ export default async function ProductPage({ params }: Props) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const categoryBreadcrumbs = mapApiBreadcrumbs(product.categoryBreadcrumbs);
+  const categoryBreadcrumbs = product.categoryBreadcrumbs.length > 0
+    ? mapApiBreadcrumbs([product.categoryBreadcrumbs[0]])
+    : [];
 
   return (
     <div>

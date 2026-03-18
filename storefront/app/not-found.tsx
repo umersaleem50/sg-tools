@@ -21,7 +21,7 @@ export default function NotFound() {
           <Link href="/proizvodi/kategorije">
             <Button variant="ghost" size="sm">
               <ShoppingBag className="size-4" />
-              Svi proizvodi
+              Sve kategorije
             </Button>
           </Link>
         </div>

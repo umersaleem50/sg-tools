@@ -7,7 +7,7 @@ export interface NavLink {
 }
 
 export const NAV_LINKS: readonly NavLink[] = [
-  { label: "Proizvodi", href: "/proizvodi/kategorije" },
+  { label: "Kategorije", href: "/proizvodi/kategorije" },
   { label: "O nama", href: "/o-nama" },
   { label: "Česta pitanja", href: "/cesta-pitanja" },
   { label: "Gde kupiti", href: "/gde-kupiti" },

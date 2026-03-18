@@ -42,10 +42,6 @@ async function ProductsList({
       <ProductGrid
         products={products.data}
         totalRecords={products.totalRecords}
-        backLink={{
-          href: "/proizvodi/kategorije",
-          label: "Sve kategorije",
-        }}
       />
       <Suspense>
         <ListingPagination
