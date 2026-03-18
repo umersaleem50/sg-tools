@@ -1,5 +1,6 @@
 import Container from "@/components/container";
 import type { Product } from "@/types/products";
+import { ExternalLink, Package } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -37,13 +38,7 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
         </div>
 
         <div className="flex flex-col flex-1 p-3 sm:p-4">
-          {product.brandName && (
-            <span className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              {product.brandName}
-            </span>
-          )}
-
-          <h3 className="text-sm sm:text-base font-semibold mt-1 line-clamp-2">
+          <h3 className="text-sm sm:text-base font-semibold line-clamp-2">
             {product.title}
           </h3>
 
@@ -54,7 +49,20 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
             />
           )}
 
-          <div className="flex items-baseline gap-2 mt-auto pt-3">
+          <div className="flex items-center gap-1.5 mt-auto pt-3">
+            <Package className="size-3.5" />
+            <span
+              className={
+                !product.inStock
+                  ? "text-xs text-muted-foreground"
+                  : "text-xs text-green-500"
+              }
+            >
+              {!product.inStock ? "Nema na stanju" : "Na stanju"}
+            </span>
+          </div>
+
+          <div className="flex items-baseline gap-2 pt-2">
             <span className="text-base sm:text-lg font-bold">
               {product.displayPrice.toLocaleString("sr-RS")} RSD
             </span>
@@ -69,13 +77,10 @@ const ProductCard = ({ product, index }: ProductCardProps) => {
             href={`https://www.prodavnicaalata.rs/proizvodi/${product.slug}/`}
             target="_blank"
             rel="noopener noreferrer"
-            className={`relative z-20 mt-3 inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 ${
-              !product.inStock
-                ? "bg-muted text-muted-foreground pointer-events-none"
-                : "bg-primary text-primary-foreground hover:bg-primary/90"
-            } transition-colors`}
+            className="relative z-20 mt-3 inline-flex items-center justify-center gap-1.5 rounded-md text-sm font-medium h-9 px-4 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            {!product.inStock ? "Nema na stanju" : "Kupi online"}
+            Idi na prodavnicu
+            <ExternalLink className="size-3.5" />
           </a>
         </div>
       </div>

@@ -1,7 +1,10 @@
-export interface ProductImage {
+export interface ProductMedia {
   url: string;
-  width: number;
-  height: number;
+  mediaType: number;
+  width: number | null;
+  height: number | null;
+  thumbnailUrl: string | null;
+  durationSeconds: number | null;
 }
 
 export interface Product {
@@ -27,7 +30,7 @@ export interface Product {
   tags: { name: string; color: string; orderNumber: number }[];
   categoryName: string;
   categorySlug: string;
-  productImages: ProductImage[];
+  productMedia: ProductMedia[];
   averageRating: number | null;
   reviewCount: number;
   maxOrderQuantity: number | null;

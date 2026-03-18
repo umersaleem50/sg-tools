@@ -1,12 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { ProductImage } from "@/types/products";
+import type { ProductMedia } from "@/types/products";
 import Image from "next/image";
 import { useState } from "react";
 
 interface ProductGalleryProps {
-  images: ProductImage[];
+  images: ProductMedia[];
   fallbackUrl?: string;
   title: string;
 }
@@ -16,11 +16,11 @@ const ProductGallery = ({
   fallbackUrl,
   title,
 }: ProductGalleryProps) => {
-  const allImages: ProductImage[] =
+  const allImages: ProductMedia[] =
     images.length > 0
       ? images
       : fallbackUrl
-        ? [{ url: fallbackUrl, width: 800, height: 800 }]
+        ? [{ url: fallbackUrl, mediaType: 0, width: 800, height: 800, thumbnailUrl: null, durationSeconds: null }]
         : [];
   const [selectedIndex, setSelectedIndex] = useState(0);
 

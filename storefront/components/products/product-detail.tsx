@@ -1,18 +1,22 @@
 import Container from "@/components/container";
 import Wrapper from "@/components/wrapper";
-import { SITE_URL } from "@/constants/links";
+import { type BreadcrumbSegment, buildBreadcrumbJsonLd } from "@/lib/categories";
 import type { Product } from "@/types/products";
-import { ChevronRight, ExternalLink, Package } from "lucide-react";
-import Image from "next/image";
+import { ExternalLink, Package } from "lucide-react";
 import Link from "next/link";
+import PageBreadcrumbs from "./page-breadcrumbs";
 import ProductGallery from "./product-gallery";
 import ProductTabs from "./product-tabs";
 
 interface ProductDetailProps {
   product: Product;
+  categoryBreadcrumbs: BreadcrumbSegment[];
 }
 
-const ProductDetail = ({ product }: ProductDetailProps) => {
+const ProductDetail = ({
+  product,
+  categoryBreadcrumbs,
+}: ProductDetailProps) => {
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -34,33 +38,10 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     },
   };
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Svi proizvodi",
-        item: `${SITE_URL}/proizvodi/kategorije`,
-      },
-      ...(product.categorySlug
-        ? [
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: product.categoryName,
-              item: `${SITE_URL}/proizvodi/kategorije/${product.categorySlug}`,
-            },
-          ]
-        : []),
-      {
-        "@type": "ListItem",
-        position: product.categorySlug ? 3 : 2,
-        name: product.title,
-      },
-    ],
-  };
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(
+    categoryBreadcrumbs,
+    product.title,
+  );
 
   return (
     <Wrapper className="py-8 lg:py-12">
@@ -74,27 +55,10 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
       />
       {/* Breadcrumbs */}
       <Container>
-        <nav className="flex items-center gap-1.5 text-sm text-muted-foreground mb-8 flex-wrap">
-          <Link
-            href="/proizvodi/kategorije"
-            className="hover:text-foreground transition-colors"
-          >
-            Svi proizvodi
-          </Link>
-          {product.categorySlug && (
-            <>
-              <ChevronRight className="size-3.5" />
-              <Link
-                href={`/proizvodi/kategorije/${product.categorySlug}`}
-                className="hover:text-foreground transition-colors"
-              >
-                {product.categoryName}
-              </Link>
-            </>
-          )}
-          <ChevronRight className="size-3.5" />
-          <span className="text-foreground">{product.title}</span>
-        </nav>
+        <PageBreadcrumbs
+          segments={categoryBreadcrumbs}
+          currentPage={product.title}
+        />
       </Container>
 
       {/* Two-column layout */}
@@ -102,7 +66,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
         {/* Left: Gallery */}
         <Container>
           <ProductGallery
-            images={product.productImages}
+            images={product.productMedia}
             fallbackUrl={product.imageUrl}
             title={product.title}
           />
@@ -111,23 +75,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
         {/* Right: Product info */}
         <Container delay={1}>
           <div className="flex flex-col">
-            {product.brandImageUrl ? (
-              <div className="relative h-8 w-24">
-                <Image
-                  src={product.brandImageUrl}
-                  alt={product.brandName}
-                  fill
-                  sizes="96px"
-                  className="object-contain object-left"
-                />
-              </div>
-            ) : product.brandName ? (
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {product.brandName}
-              </span>
-            ) : null}
-
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
               {product.title}
             </h1>
 
@@ -174,14 +122,10 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
               href={`https://www.prodavnicaalata.rs/proizvodi/${product.slug}/`}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-6 inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-8 transition-colors ${
-                !product.inStock
-                  ? "bg-muted text-muted-foreground pointer-events-none"
-                  : "bg-primary text-primary-foreground hover:bg-primary/90"
-              }`}
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-8 transition-colors bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              {!product.inStock ? "Nema na stanju" : "Kupi online"}
-              {product.inStock && <ExternalLink className="size-4" />}
+              Idi na prodavnicu
+              <ExternalLink className="size-4" />
             </a>
 
             {/* Metadata */}

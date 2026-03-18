@@ -1,7 +1,8 @@
 import ProductDetail from "@/components/products/product-detail";
 import RelatedProducts from "@/components/products/related-products";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
-import { getProductBySlug, getSitemapProducts } from "@/lib/api";
+import { getCategories, getProductBySlug, getSitemapProducts } from "@/lib/api";
+import { buildCategoryBreadcrumbs } from "@/lib/categories";
 import { createProductMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -33,12 +34,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const [product, categories] = await Promise.all([
+    getProductBySlug(slug),
+    getCategories(),
+  ]);
   if (!product) notFound();
+
+  const categoryBreadcrumbs = product.categorySlug
+    ? buildCategoryBreadcrumbs(categories, product.categorySlug)
+    : [];
 
   return (
     <div>
-      <ProductDetail product={product} />
+      <ProductDetail
+        product={product}
+        categoryBreadcrumbs={categoryBreadcrumbs}
+      />
       {product.categorySlug && (
         <SectionErrorBoundary>
           <Suspense fallback={null}>
