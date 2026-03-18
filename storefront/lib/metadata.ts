@@ -39,7 +39,6 @@ export function createRootMetadata(): Metadata {
       ],
       apple: "/apple-touch-icon.png",
     },
-    manifest: "/site.webmanifest",
   };
 }
 

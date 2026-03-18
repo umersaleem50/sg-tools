@@ -6,10 +6,16 @@ import { base, heading } from "@/constants/fonts";
 import { SITE_URL } from "@/constants/links";
 import { createRootMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
+import type { Viewport } from "next";
 import { Suspense, type ReactNode } from "react";
 import "./globals.css";
 
 export const metadata = createRootMetadata();
+
+export const viewport: Viewport = {
+  themeColor: "#0A0A0A",
+  colorScheme: "dark",
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
