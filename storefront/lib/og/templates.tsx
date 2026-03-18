@@ -83,6 +83,8 @@ function AccentLine() {
   );
 }
 
+// NOTE: OgFooter is intentionally NOT used on most templates.
+// The sgtools.rs URL is redundant — recipients already see the domain in the shared link.
 function OgFooter() {
   return (
     <div
@@ -224,34 +226,42 @@ export function ProductTemplate({
 
   return (
     <OgBackground>
+      {/* Logo top-left */}
+      <div
+        style={{
+          display: "flex",
+          padding: "60px 80px 0 80px",
+        }}
+      >
+        <Logo width={120} />
+      </div>
+
       <div
         style={{
           width: "100%",
-          height: "100%",
+          flex: 1,
           display: "flex",
-          alignItems: "center",
-          padding: "60px 80px",
-          gap: 60,
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "0 80px 60px 80px",
         }}
       >
+       <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 60,
+        }}
+       >
         {/* Left side: text content */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
             flex: 1,
+            paddingTop: 20,
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              marginBottom: 24,
-            }}
-          >
-            <Logo width={120} />
-          </div>
-
           {categoryName && (
             <div
               style={{
@@ -270,7 +280,7 @@ export function ProductTemplate({
                   letterSpacing: 2,
                 }}
               >
-                {categoryName.toUpperCase()}
+                {categoryName}
               </div>
               <div
                 style={{
@@ -397,6 +407,7 @@ export function ProductTemplate({
             </div>
           </div>
         )}
+       </div>
       </div>
     </OgBackground>
   );
