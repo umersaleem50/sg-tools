@@ -3,8 +3,8 @@ import CategoryCard from "@/components/products/category-card";
 import StatusMessage from "@/components/status-message";
 import Wrapper from "@/components/wrapper";
 import { getCategories } from "@/lib/api";
-import { Package } from "lucide-react";
 import { createPageMetadata } from "@/lib/metadata";
+import { Package } from "lucide-react";
 
 export const metadata = createPageMetadata({
   title: "Kategorije proizvoda",
@@ -31,13 +31,12 @@ const CategoriesPage = async () => {
             description="Proveri ponovo uskoro."
           />
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
+          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-1.5 sm:gap-3 lg:gap-4">
             {categories.map((category, index) => (
               <CategoryCard
                 key={category.slug}
                 category={category}
                 title={category.name}
-                description={category.description}
                 index={index}
               />
             ))}

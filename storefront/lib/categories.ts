@@ -26,7 +26,7 @@ export function buildBreadcrumbJsonLd(
 ) {
   const items: Record<string, unknown>[] = [
     { name: "Početna", item: `${SITE_URL}/` },
-    { name: "Svi proizvodi", item: `${SITE_URL}/proizvodi/kategorije` },
+    { name: "Kategorije", item: `${SITE_URL}/proizvodi/kategorije` },
     ...segments.map((seg) => ({
       name: seg.label,
       item: `${SITE_URL}${seg.href}`,

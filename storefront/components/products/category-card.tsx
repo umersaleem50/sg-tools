@@ -6,18 +6,16 @@ import Link from "next/link";
 interface CategoryCardProps {
   category: Category;
   title: string;
-  description: string;
   index: number;
 }
 
 const CategoryCard = ({
   category,
   title,
-  description,
   index,
 }: CategoryCardProps) => {
   return (
-    <Container delay={index * 0.1}>
+    <Container delay={Math.min(index * 0.05, 0.3)}>
       <Link href={`/proizvodi/kategorije/${category.slug}`}>
         <div className="relative bg-foreground/5 border border-border/20 hover:border-border transition-all cursor-pointer rounded-lg lg:rounded-xl overflow-hidden">
           <Image
@@ -27,11 +25,10 @@ const CategoryCard = ({
             height={1000}
             className="object-contain w-full"
           />
-          <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 flex flex-col mt-auto pt-4">
-            <span className="text-base lg:text-xl font-semibold">{title}</span>
-            <p className="text-muted-foreground text-xs sm:text-sm mt-1 line-clamp-2">
-              {description}
-            </p>
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-2 pb-2 pt-10 sm:px-3 sm:pb-3 sm:pt-14">
+            <span className="text-sm sm:text-base lg:text-lg font-semibold text-white">
+              {title}
+            </span>
           </div>
         </div>
       </Link>

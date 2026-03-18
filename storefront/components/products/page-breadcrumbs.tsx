@@ -28,7 +28,7 @@ const PageBreadcrumbs = ({ segments, currentPage }: PageBreadcrumbsProps) => {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/proizvodi/kategorije">Svi proizvodi</Link>
+            <Link href="/proizvodi/kategorije">Kategorije</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
 
