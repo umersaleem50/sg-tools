@@ -1,4 +1,5 @@
 import { DollarSign, Hand, ToolCase, Users } from "lucide-react";
+import { COMPANY_BENEFITS } from "@/constants/content";
 import Container from "./container";
 import { Feature } from "./feature";
 import Section from "./section";
@@ -31,35 +32,13 @@ const FEATURE_STYLES = [
   },
 ];
 
-const benefits = [
-  {
-    title: "Proveren kvalitet",
-    description:
-      "Izdržljivi alati napravljeni da traju i u najzahtevnijim uslovima.",
-  },
-  {
-    title: "Ergonomski dizajn",
-    description:
-      "Prirodno leži u ruci, pruža siguran hvat i smanjuje zamor pri radu.",
-  },
-  {
-    title: "Iskustvo korisnika",
-    description: "Razvijeno uz sugestije profesionalaca i hobista na terenu.",
-  },
-  {
-    title: "Realne cene",
-    description:
-      "Profesionalni alati po cenama koje imaju smisla za svakodnevni rad.",
-  },
-];
-
 function CompanyBenefits() {
   return (
     <Section>
       <Wrapper>
         <Container>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
-            {benefits.map((item, index) => (
+            {COMPANY_BENEFITS.map((item, index) => (
               <Feature
                 key={index}
                 title={item.title}

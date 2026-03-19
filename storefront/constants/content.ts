@@ -100,6 +100,28 @@ export const ABOUT_MILESTONES = [
   },
 ];
 
+export const COMPANY_BENEFITS = [
+  {
+    title: "Proveren kvalitet",
+    description:
+      "Izdržljivi alati napravljeni da traju i u najzahtevnijim uslovima.",
+  },
+  {
+    title: "Ergonomski dizajn",
+    description:
+      "Prirodno leži u ruci, pruža siguran hvat i smanjuje zamor pri radu.",
+  },
+  {
+    title: "Iskustvo korisnika",
+    description: "Razvijeno uz sugestije profesionalaca i hobista na terenu.",
+  },
+  {
+    title: "Realne cene",
+    description:
+      "Profesionalni alati po cenama koje imaju smisla za svakodnevni rad.",
+  },
+];
+
 export const ABOUT_PARAGRAPHS = [
   "SG TOOLS je brend nastao kao odgovor na ono što smo godinama slušali sa druge strane pulta — od majstora, hobista, instalatera i servisera koji tačno znaju šta od alata očekuju. Njihove sugestije nismo posmatrali kao komentare, već kao smernice. Pažljivo smo ih slušali, beležili i pretvarali u konkretna rešenja.",
   "Razumeli smo da dobar alat nije samo pitanje izgleda ili tehničke specifikacije, već ravnoteža između pouzdanosti, ergonomije, kvaliteta materijala i osećaja u radu.",
