@@ -1,5 +1,5 @@
-import ContactForm from "@/components/contact/contact-form";
 import ContactHero from "@/components/contact/contact-hero";
+import ContactLocations from "@/components/contact/contact-locations";
 import CTA from "@/components/cta";
 import { createPageMetadata } from "@/lib/metadata";
 
@@ -14,7 +14,7 @@ const ContactPage = () => {
   return (
     <div>
       <ContactHero />
-      <ContactForm />
+      <ContactLocations />
       <CTA />
     </div>
   );

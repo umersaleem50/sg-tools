@@ -6,10 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { sendContactEmail } from "@/app/kontakt/actions";
-import {
-  contactSchema,
-  type ContactFormData,
-} from "@/lib/schemas/contact";
+import { contactSchema, type ContactFormData } from "@/lib/schemas/contact";
 import Container from "../container";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -40,22 +37,14 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="w-full pb-16 lg:pb-24">
+    <div className="w-full">
       <Wrapper>
-        <Container delay={0.1}>
-          <div className="flex flex-col lg:items-center lg:justify-center">
-            <h2 className="text-2xl lg:text-3xl font-semibold text-left lg:text-center">
-              Kontaktiraj nas
-            </h2>
-          </div>
-        </Container>
-
         <Container delay={0.2}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="max-w-3xl mx-auto w-full mt-10 space-y-4"
+            className="max-w-3xl mx-auto w-full space-y-6"
           >
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Label htmlFor="email">E-mail</Label>
               <Input
                 id="email"
@@ -72,7 +61,7 @@ const ContactForm = () => {
               )}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Label htmlFor="message">Kako možemo da ti pomognemo?</Label>
               <Textarea
                 id="message"

@@ -1,31 +1,83 @@
-import { CONTACT_CARDS } from "@/constants";
+import { CONTACT_INFO } from "@/constants";
+import { formatTelHref } from "@/lib/utils";
+import { type LucideIcon, Clock, Mail, Phone } from "lucide-react";
+import { type ReactNode } from "react";
 import Container from "../container";
 import HeroHeader from "../hero-header";
+import ContactForm from "./contact-form";
 
-const ContactHero = () => {
+function ContactCard({
+  icon: Icon,
+  title,
+  children,
+}: {
+  icon: LucideIcon;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex flex-col items-center p-5 rounded-2xl border border-border/50 relative overflow-hidden">
+      <Icon className="size-50 text-primary absolute -right-11 -top-11 opacity-10" />
+      <h3 className="text-lg font-semibold">{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+function ContactHero() {
   return (
     <HeroHeader
       title="Javi nam se"
       description="Imaš pitanje o našim alatima, treba ti pomoć da nađeš pravi proizvod, ili želiš da postaneš diler? Rado ćemo ti pomoći."
     >
-      <Container delay={0.3} className="w-full">
-        <div className="flex flex-col md:flex-row justify-center gap-6 w-full mt-10">
-          {CONTACT_CARDS.map((card, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-center p-6 rounded-2xl bg-[#0A0A0A] border border-border/50"
+      <Container delay={0.3} className="flex gap-5 w-full mt-12">
+        <div className="flex flex-col gap-5 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <ContactCard icon={Phone} title="Telefoni">
+              <ul className="mt-2 space-y-1 text-center">
+                {CONTACT_INFO.phones.map((phone) => (
+                  <li key={phone.number}>
+                    <span className="text-xs">{phone.label}</span>
+                    <br />
+                    <a
+                      href={formatTelHref(phone.number)}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {phone.number}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </ContactCard>
+
+            <ContactCard icon={Clock} title="Radno vreme">
+              <ul className="mt-2 space-y-1 text-center">
+                {CONTACT_INFO.hours.map((slot) => (
+                  <li key={slot.days}>
+                    <span className="text-xs">{slot.days}</span>
+                    <br />
+                    <span className="text-sm text-muted-foreground">
+                      {slot.time}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </ContactCard>
+          </div>
+
+          <ContactCard icon={Mail} title="E-mail">
+            <a
+              href={`mailto:${CONTACT_INFO.email}`}
+              className="text-sm text-muted-foreground mt-1 hover:text-primary transition-colors"
             >
-              <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <card.icon className="size-6 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold mt-4">{card.title}</h3>
-              <p className="text-sm text-muted-foreground mt-1">{card.value}</p>
-            </div>
-          ))}
+              {CONTACT_INFO.email}
+            </a>
+          </ContactCard>
         </div>
+        <ContactForm />
       </Container>
     </HeroHeader>
   );
-};
+}
 
 export default ContactHero;

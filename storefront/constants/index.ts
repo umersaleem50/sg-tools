@@ -1,22 +1,28 @@
-import { Mail, Phone, MapPin } from "lucide-react";
-
-export const CONTACT_CARDS = [
-  {
-    icon: Mail,
-    title: "E-mail",
-    value: "contact@sgtools.rs",
-  },
-  {
-    icon: Phone,
-    title: "Telefon",
-    value: "+381 11 123 4567",
-  },
-  {
-    icon: MapPin,
-    title: "Lokacija",
-    value: "Belgrade, Serbia",
-  },
-];
+export const CONTACT_INFO = {
+  email: "office@prodavnicaalata.rs",
+  phones: [
+    { label: "Internet prodaja", number: "011-4520-171" },
+    { label: "Maloprodaja Ugrinovačka", number: "011-2100-056" },
+    { label: "Maloprodaja Vojislava Ilića", number: "011-2886-509" },
+  ],
+  hours: [
+    { days: "Ponedeljak - Petak", time: "08:00 - 16:00" },
+    { days: "Subota", time: "09:00 - 15:00" },
+    { days: "Nedelja", time: "Ne radimo" },
+  ],
+  locations: [
+    {
+      name: "Ugrinovačka 212",
+      address: "Ugrinovačka 212, Zemun, Beograd",
+      coords: { lat: 44.8283, lng: 20.3817 },
+    },
+    {
+      name: "Vojislava Ilića 141g",
+      address: "Vojislava Ilića 141g, Beograd",
+      coords: { lat: 44.7855, lng: 20.5008 },
+    },
+  ],
+};
 
 export const TESTIMONIALS = [
   {
