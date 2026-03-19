@@ -38,7 +38,7 @@ const CTA = () => {
           <div className="flex flex-wrap justify-center items-center gap-2 lg:gap-3">
             {TRUST_BADGES.map((badge, index) => (
               <Container key={index} delay={0.2 * index}>
-                <div className="flex items-center gap-2 px-2 py-2 rounded-lg bg-foreground/[0.03 text-muted-foreground">
+                <div className="flex items-center gap-2 px-2 py-2 rounded-lg text-muted-foreground">
                   <badge.icon className="size-3.5 shrink-0" strokeWidth={1.5} />
                   <span className="text-xs font-medium whitespace-nowrap">
                     {badge.text}
