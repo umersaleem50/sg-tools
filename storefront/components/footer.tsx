@@ -74,7 +74,7 @@ const Footer = () => {
           <div className="absolute top-0 w-4/5 mx-auto inset-x-0 h-px bg-linear-to-r from-[#050505] via-primary/40 to-[#050505]"></div>
         </Container>
 
-        <div className="grid gap-10 grid-cols-3 xl:grid-cols-4 xl:gap-8">
+        <div className="grid gap-10 grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-8">
           {/* Link columns */}
           <FooterLinkColumn
             title="Proizvodi"
@@ -99,7 +99,7 @@ const Footer = () => {
           <Container
             animation="fadeRight"
             delay={0.4}
-            className="col-span-3 xl:col-span-1"
+            className="col-span-2 sm:col-span-2 col-start-1 xl:col-span-1"
           >
             <div className="flex flex-col items-start justify-start xl:pr-8">
               <div className="flex items-center gap-2">
