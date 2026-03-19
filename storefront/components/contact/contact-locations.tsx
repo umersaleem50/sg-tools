@@ -1,7 +1,7 @@
 "use client";
 
 import { CONTACT_INFO } from "@/constants";
-import { MapPin } from "lucide-react";
+import { ExternalLink, MapPin } from "lucide-react";
 import dynamic from "next/dynamic";
 import Container from "../container";
 import Section from "../section";
@@ -36,15 +36,24 @@ function ContactLocations() {
                   />
                 </div>
 
-                <div className="relative p-5 flex items-center gap-4">
+                <div className="relative p-3 sm:p-5 flex items-center gap-4">
                   <div className="size-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                     <MapPin className="size-5 text-primary" />
                   </div>
-                  <div>
+                  <div className="flex-1 min-w-0">
                     <h3 className="font-semibold">{location.name}</h3>
                     <p className="text-sm text-muted-foreground mt-0.5">
                       {location.address}
                     </p>
+                    <a
+                      href={`https://maps.google.com/?q=${location.coords.lat},${location.coords.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 mt-1"
+                    >
+                      Otvori u Google Maps
+                      <ExternalLink className="size-3" />
+                    </a>
                   </div>
                 </div>
               </div>

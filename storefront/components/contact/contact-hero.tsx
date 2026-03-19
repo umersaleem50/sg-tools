@@ -17,7 +17,7 @@ function ContactCard({
 }) {
   return (
     <div className="flex flex-col items-center p-5 rounded-2xl border border-border/50 relative overflow-hidden">
-      <Icon className="size-50 text-primary absolute -right-11 -top-11 opacity-10" />
+      <Icon className="size-50 text-primary absolute -right-11 -top-11 opacity-10 -z-10" />
       <h3 className="text-lg font-semibold">{title}</h3>
       {children}
     </div>
@@ -30,7 +30,11 @@ function ContactHero() {
       title="Javi nam se"
       description="Imaš pitanje o našim alatima, treba ti pomoć da nađeš pravi proizvod, ili želiš da postaneš diler? Rado ćemo ti pomoći."
     >
-      <Container delay={0.3} className="flex gap-5 w-full mt-12">
+      <Container
+        delay={0.3}
+        className="flex flex-col sm:flex-row gap-16 sm:gap-5 w-full mt-12"
+      >
+        <ContactForm />
         <div className="flex flex-col gap-5 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <ContactCard icon={Phone} title="Telefoni">
@@ -74,7 +78,6 @@ function ContactHero() {
             </a>
           </ContactCard>
         </div>
-        <ContactForm />
       </Container>
     </HeroHeader>
   );
